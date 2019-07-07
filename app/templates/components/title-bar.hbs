@@ -1,7 +1,11 @@
 {{#if showBackButton}}
-    <button>&lt;</button>
+    <button {{action "navigateBack"}}>&lt;</button>
 {{/if}}
 
 <span>{{@title}}</span>
 
-<button>*</button>
+{{#if settingsNavsBack}}
+    <button {{action "navigateBack"}}>*</button>
+{{else}}
+    <LinkTo @route="settings">*</LinkTo>
+{{/if}}

@@ -4,5 +4,12 @@ import Component from '@ember/component';
 
 export default Component.extend({
     classNames: [ 'title-bar' ],
-    showBackButton: true
+    showBackButton: true,
+    settingsNavsBack: false,
+
+    actions: {
+        navigateBack() {
+            window.history.back();
+        }
+    }
 });
