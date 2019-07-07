@@ -7,9 +7,8 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('week', { path: 'week/:week_id' }, function () {
-    this.route('lift', { path: 'lift/:lift_id' });
-  });
+  this.route('week', { path: 'week/:week_id' });
+  this.route('lift', { path: 'lift/:week_id/:lift_id'});
 });
 
 export default Router;
