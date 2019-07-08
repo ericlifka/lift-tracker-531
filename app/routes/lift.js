@@ -1,7 +1,10 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  store: service(),
+
   model(params) {
-    return { week: params.week_id, lift: params.lift_id };
+    return this.get('store').getWorkouts(params.week_id, params.lift_id);
   }
 });
