@@ -1,11 +1,17 @@
 {{#if showBackButton}}
-    <button {{action "navigateBack"}}>&lt;</button>
+    <button {{action "navigateBack"}}>
+        <ion-icon name="arrow-round-back"></ion-icon>
+    </button>
 {{/if}}
 
 <span>{{@title}}</span>
 
 {{#if settingsNavsBack}}
-    <button {{action "navigateBack"}}>*</button>
+    <button {{action "navigateBack"}}>
+        <ion-icon name="settings"></ion-icon>
+    </button>
 {{else}}
-    <LinkTo @route="settings">*</LinkTo>
+    <LinkTo @route="settings">
+        <ion-icon name="settings"></ion-icon>
+    </LinkTo>
 {{/if}}

@@ -9,7 +9,7 @@ export default Component.extend({
 
     actions: {
         navigateBack() {
-            window.history.back();
+            history.back();
         }
     }
 });
