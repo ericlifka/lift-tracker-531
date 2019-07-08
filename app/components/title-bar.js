@@ -1,15 +1,13 @@
 import Component from '@ember/component';
 
-// import { computed } from '@ember/object';
-
 export default Component.extend({
-    classNames: [ 'title-bar' ],
-    showBackButton: true,
-    settingsNavsBack: false,
+  classNames: ['title-bar'],
+  showBackButton: true,
+  settingsNavsBack: false,
 
-    actions: {
-        navigateBack() {
-            history.back();
-        }
+  actions: {
+    navigateBack() {
+      history.back();
     }
+  }
 });

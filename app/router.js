@@ -6,9 +6,9 @@ const Router = EmberRouter.extend({
   rootURL: config.rootURL
 });
 
-Router.map(function() {
+Router.map(function () {
   this.route('week', { path: 'week/:week_id' });
-  this.route('lift', { path: 'lift/:week_id/:lift_id'});
+  this.route('lift', { path: 'lift/:week_id/:lift_id' });
   this.route('settings');
 });
 
