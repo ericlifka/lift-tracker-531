@@ -1,7 +1,7 @@
 {{#if showBackButton}}
   <div class="back-button-wrapper">
     <button class="nav-button" {{action "navigateBack"}}>
-      <ion-icon name="arrow-round-back"></ion-icon>
+      <ion-icon name="arrow-round-back" />
     </button>
   </div>
 {{/if}}
@@ -11,11 +11,11 @@
 <div class="settings-button-wrapper">
   {{#if settingsNavsBack}}
     <button class="nav-button" {{action "navigateBack"}}>
-      <ion-icon name="settings"></ion-icon>
+      <ion-icon name="settings" />
     </button>
   {{else}}
     <LinkTo class="nav-button" @route="settings" @tagName="button">
-      <ion-icon name="settings"></ion-icon>
+      <ion-icon name="settings" />
     </LinkTo>
   {{/if}}
 </div>
