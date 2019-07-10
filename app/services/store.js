@@ -39,8 +39,15 @@ function applyWorkoutSpec(spec, max) {
   return spec.map(movement => ({
     ...movement,
     plates: [], // tbd
-    weight: movement.percent * max
+    weight: round(movement.percent * max)
   }));
+}
+
+function round(weight) {
+  let factor = 5;
+  let half = factor / 2;
+
+  return factor * Math.floor( (weight + half) / factor );
 }
 
 export default Service.extend({
