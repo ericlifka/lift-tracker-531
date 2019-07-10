@@ -39,7 +39,7 @@ function applyWorkoutSpec(spec, max) {
   return spec.map(movement => ({
     ...movement,
     plates: [], // tbd
-    weight: round(movement.percent * max)
+    weight: Math.max(round(movement.percent * max), 45)
   }));
 }
 
