@@ -35,21 +35,6 @@ function getWeekSpec(weekId) {
   return week_specs[ weekId ] || week_specs[ 'warmup' ];
 }
 
-function applyWorkoutSpec(spec, max) {
-  return spec.map(movement => ({
-    ...movement,
-    plates: [], // tbd
-    weight: Math.max(round(movement.percent * max), 45)
-  }));
-}
-
-function round(weight) {
-  let factor = 5;
-  let half = factor / 2;
-
-  return factor * Math.floor( (weight + half) / factor );
-}
-
 export default Service.extend({
 
   loadData() {
@@ -77,18 +62,26 @@ export default Service.extend({
     return lift ? lift.max : 0;
   },
 
+  getBarWeight() {
+    return this.get('data.specifications.bar');
+  },
+
+  getRoundingFactor() {
+    return this.get('data.specifications.round');
+  },
+
   getWorkouts(weekId, liftId) {
     return new Promise(resolve => {
       let max = this.getMax(liftId);
       let sets = [{
         name: "Workout",
-        movements: applyWorkoutSpec(getWeekSpec(weekId), max)
+        movements: this.applyWorkoutSpec(getWeekSpec(weekId), max)
       }];
 
       if (weekId !== "deload") {
         sets.unshift({
           name: "Warmup",
-          movements: applyWorkoutSpec(getWeekSpec('warmup'), max)
+          movements: this.applyWorkoutSpec(getWeekSpec('warmup'), max)
         })
       }
 
@@ -98,5 +91,20 @@ export default Service.extend({
         week: weekId
       });
     });
+  },
+
+  applyWorkoutSpec(spec, max) {
+    return spec.map(movement => ({
+      ...movement,
+      plates: [], // tbd
+      weight: Math.max(this.round(movement.percent * max), this.getBarWeight())
+    }));
+  },
+
+  round(weight) {
+    let factor = this.getRoundingFactor();
+    let half = factor / 2;
+
+    return factor * Math.floor( (weight + half) / factor );
   }
 });
