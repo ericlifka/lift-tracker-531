@@ -3,6 +3,46 @@ import { Promise, resolve } from 'rsvp';
 import { load } from '../data/access';
 import { runMigrations } from '../data/migrations';
 
+const week_specs = {
+  'warmup': [
+    { percent: .4, reps: 5 },
+    { percent: .5, reps: 5 },
+    { percent: .6, reps: 3 }
+  ],
+  '5-5-5': [
+    { percent: .65, reps: 5 },
+    { percent: .75, reps: 5 },
+    { percent: .85, reps: 5, plusSet: true }
+  ],
+  '3-3-3': [
+    { percent: .7, reps: 3 },
+    { percent: .8, reps: 3 },
+    { percent: .9, reps: 3, plusSet: true }
+  ],
+  '5-3-1': [
+    { percent: .75, reps: 5 },
+    { percent: .85, reps: 3 },
+    { percent: .95, reps: 1, plusSet: true }
+  ],
+  'deload': [
+    { percent: .4, reps: 5 },
+    { percent: .5, reps: 5 },
+    { percent: .6, reps: 5 }
+  ]
+};
+
+function getWeekSpec(weekId) {
+  return week_specs[ weekId ] || week_specs[ 'warmup' ];
+}
+
+function applyWorkoutSpec(spec, max) {
+  return spec.map(movement => ({
+    ...movement,
+    plates: [], // tbd
+    weight: movement.percent * max
+  }));
+}
+
 export default Service.extend({
 
   loadData() {
@@ -25,25 +65,31 @@ export default Service.extend({
     return resolve(this.get('data.lifts').map(lift => lift.name));
   },
 
+  getMax(liftId) {
+    let lift = this.get('data.lifts').find(lift => lift.name === liftId);
+    return lift ? lift.max : 0;
+  },
+
   getWorkouts(weekId, liftId) {
-    return resolve({
-      "lift": liftId,
-      "week": weekId,
-      "sets": [{
-        "name": "Warmup",
-        "movements": [
-          { "weight": 45, "reps": 5, "plates": [] },
-          { "weight": 45, "reps": 5, "plates": [] },
-          { "weight": 45, "reps": 3, "plates": [] }
-        ]
-      }, {
-        "name": "Workout",
-        "movements": [
-          { "weight": 45, "reps": 5, "plates": [] },
-          { "weight": 45, "reps": 5, "plates": [] },
-          { "weight": 55, "reps": 5, "plates": [5], plusSet: true }
-        ]
-      }]
+    return new Promise(resolve => {
+      let max = this.getMax(liftId);
+      let sets = [{
+        name: "Workout",
+        movements: applyWorkoutSpec(getWeekSpec(weekId), max)
+      }];
+
+      if (weekId !== "deload") {
+        sets.unshift({
+          name: "Warmup",
+          movements: applyWorkoutSpec(getWeekSpec('warmup'), max)
+        })
+      }
+
+      resolve({
+        sets,
+        lift: liftId,
+        week: weekId
+      });
     });
   }
 });
