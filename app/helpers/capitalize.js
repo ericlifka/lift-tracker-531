@@ -1,8 +1,8 @@
 import { helper } from '@ember/component/helper';
 import { capitalize as cap } from '@ember/string';
 
-export function capitalize(params) {
-  return cap(params[0]);
+export function capitalize([str = ""]) {
+  return cap(str);
 }
 
 export default helper(capitalize);

@@ -1,0 +1,10 @@
+<div class="row title">{{@set.name}}</div>
+
+{{#each @set.movements as |movement|}}
+  <div class="row lift">
+    <span class="weight">{{movement.weight}}</span>
+    <span class="label">lbs</span>
+    <span class="count">x{{movement.reps}}{{if movement.plusSet "+"}}</span>
+    <span class="plates">[ {{join ", " movement.plates}} ]</span>
+  </div>
+{{/each}}

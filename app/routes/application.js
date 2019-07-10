@@ -4,12 +4,7 @@ import { inject as service } from '@ember/service';
 export default Route.extend({
   store: service(),
 
-  model(params) {
-    return this.get('store')
-      .getLifts()
-      .then(lifts => ({
-        lifts,
-        week: params.week_id
-      }));
+  model() {
+    return this.get('store').loadData();
   }
 });

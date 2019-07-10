@@ -1,8 +1,9 @@
 <TitleBar @title="Lift Tracker" @showBackButton={{false}} />
 
-<ul>
-  <li><LinkTo @route="week" @model="555">5-5-5</LinkTo></li>
-  <li><LinkTo @route="week" @model="333">3-3-3</LinkTo></li>
-  <li><LinkTo @route="week" @model="531">5-3-1</LinkTo></li>
-  <li><LinkTo @route="week" @model="deload">Deload</LinkTo></li>
-</ul>
+<div class="selection-list">
+  {{#each model as |week|}}
+    <LinkTo @route="week" @model={{week}}>
+      {{capitalize week}}
+    </LinkTo>
+  {{/each}}
+</div>

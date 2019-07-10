@@ -1,8 +1,11 @@
-<TitleBar @title={{capitalize model}} />
+{{#let model.week as |week|}}
+  <TitleBar @title={{capitalize week}} />
 
-<ul>
-  <li><LinkTo @route="lift" @models={{array model "squat"}}>Squat</LinkTo></li>
-  <li><LinkTo @route="lift" @models={{array model "bench"}}>Bench</LinkTo></li>
-  <li><LinkTo @route="lift" @models={{array model "deadlift"}}>Deadlift</LinkTo></li>
-  <li><LinkTo @route="lift" @models={{array model "press"}}>Press</LinkTo></li>
-</ul>
+  <div class="selection-list">
+    {{#each model.lifts as |lift|}}
+      <LinkTo @route="lift" @models={{array week lift}}>
+        {{capitalize lift}}
+      </LinkTo>
+    {{/each}}
+  </div>
+{{/let}}

@@ -1,3 +1,5 @@
 <TitleBar @title={{concat (capitalize model.lift) " " (capitalize model.week)}} />
 
-lift and stuff {{model.week}}, {{model.lift}}qaq
+{{#each model.sets as |set|}}
+  <WorkoutSet @set={{set}} />
+{{/each}}
