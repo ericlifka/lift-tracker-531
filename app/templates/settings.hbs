@@ -1,3 +1,12 @@
 <TitleBar @title="Settings" @settingsNavsBack={{true}} />
 
-settings
+<div class="settings-view">
+  {{#each model.lifts as |lift|}}
+    <div class="row">
+      <button {{action "decreaseLift" lift.name}}>-5</button>
+      <div class="label">{{lift.name}}</div>
+      <div class="value">{{lift.max}}</div>
+      <button {{action "increaseLift" lift.name}}>+5</button>
+    </div>
+  {{/each}}
+</div>

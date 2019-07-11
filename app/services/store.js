@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import { Promise, resolve } from 'rsvp';
+import { set } from '@ember/object';
 
 import { load } from '../data/access';
 import { runMigrations } from '../data/migrations';
@@ -55,6 +56,13 @@ export default Service.extend({
 
   getSettingsModel() {
     return this.get('data');
+  },
+
+  updateMax(liftId, increment) {
+    let lift = this.get('data.lifts').find(lift => lift.name === liftId);
+    if (lift) {
+      set(lift, 'max', lift.max + increment);
+    }
   },
 
   getMax(liftId) {

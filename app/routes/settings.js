@@ -5,6 +5,6 @@ export default Route.extend({
   store: service(),
 
   model() {
-    this.get('store').getSettingsModel();
+    return this.get('store').getSettingsModel();
   }
 });
