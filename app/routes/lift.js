@@ -5,6 +5,6 @@ export default Route.extend({
   store: service(),
 
   model(params) {
-    return this.get('store').getWorkouts(params.week_id, params.lift_id);
+    return this.get('store').getWorkoutsModel(params.week_id, params.lift_id);
   }
 });

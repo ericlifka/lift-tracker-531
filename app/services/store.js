@@ -18,32 +18,15 @@ export default Service.extend({
     });
   },
 
-  getWeeks() {
+  getWeeksModel() {
     return resolve(['5-5-5', '3-3-3', '5-3-1', 'deload']);
   },
 
-  getLifts() {
+  getLiftsModel() {
     return resolve(this.get('data.lifts').map(lift => lift.name));
   },
 
-  getMax(liftId) {
-    let lift = this.get('data.lifts').find(lift => lift.name === liftId);
-    return lift ? lift.max : 0;
-  },
-
-  getBarWeight() {
-    return this.get('data.specifications.bar');
-  },
-
-  getRoundingFactor() {
-    return this.get('data.specifications.round');
-  },
-
-  getUsersPlates() {
-    return this.get('data.specifications.plates').sort((a, b) => b - a);
-  },
-
-  getWorkouts(weekId, liftId) {
+  getWorkoutsModel(weekId, liftId) {
     return new Promise(resolve => {
       let max = this.getMax(liftId);
       let barWeight = this.getBarWeight();
@@ -68,5 +51,26 @@ export default Service.extend({
         week: weekId
       });
     });
+  },
+
+  getSettingsModel() {
+    return this.get('data');
+  },
+
+  getMax(liftId) {
+    let lift = this.get('data.lifts').find(lift => lift.name === liftId);
+    return lift ? lift.max : 0;
+  },
+
+  getBarWeight() {
+    return this.get('data.specifications.bar');
+  },
+
+  getRoundingFactor() {
+    return this.get('data.specifications.round');
+  },
+
+  getUsersPlates() {
+    return this.get('data.specifications.plates').sort((a, b) => b - a);
   }
 });

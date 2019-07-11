@@ -6,7 +6,7 @@ export default Route.extend({
 
   model(params) {
     return this.get('store')
-      .getLifts()
+      .getLiftsModel()
       .then(lifts => ({
         lifts,
         week: params.week_id

@@ -5,6 +5,6 @@ export default Route.extend({
   store: service(),
 
   model() {
-    return this.get('store').getWeeks();
+    return this.get('store').getWeeksModel();
   }
 });
