@@ -4,22 +4,23 @@ html,
 body {
   margin: 0;
   padding: 0;
+}
+
+body {
   background-color: #ffffff;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  overflow: hidden;
+  color: @primary-darkest;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 button {
   cursor: pointer;
   background-color: transparent;
-}
-
-// -- app styles -- //
-.application {
-  color: @primary-darkest;
+  font-family: inherit;
 }
 
 @import 'index';
-@import 'settings-view';
+@import 'settings';
 @import 'components/title-bar';
 @import 'components/workout-set';

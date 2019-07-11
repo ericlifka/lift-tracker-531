@@ -5,6 +5,6 @@ export default Route.extend({
   store: service(),
 
   model() {
-    return this.get('store').loadData();
+    return this.store.loadData();
   }
 });

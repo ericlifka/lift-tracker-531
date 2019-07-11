@@ -4,8 +4,8 @@
   {{#each model.lifts as |lift|}}
     <div class="row">
       <button {{action "decreaseLift" lift.name}}>-5</button>
-      <div class="label">{{lift.name}}</div>
-      <div class="value">{{lift.max}}</div>
+      <span class="lift">{{capitalize lift.name}}</span>
+      <span class="max">{{lift.max}}</span>
       <button {{action "increaseLift" lift.name}}>+5</button>
     </div>
   {{/each}}
