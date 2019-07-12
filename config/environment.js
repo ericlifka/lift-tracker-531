@@ -20,6 +20,16 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    firebase: {
+      apiKey: "AIzaSyDO6XMLOZQT-joFrwFvu_FtNWvoT2rhXvU",
+      authDomain: "lift-tracker-531.firebaseapp.com",
+      databaseURL: "https://lift-tracker-531.firebaseio.com",
+      projectId: "lift-tracker-531",
+      storageBucket: "",
+      messagingSenderId: "881723990641",
+      appId: "1:881723990641:web:6744cc8322f10c0a"
     }
   };
 

@@ -1,5 +1,12 @@
 <TitleBar @title="Settings" @settingsNavsBack={{true}} />
 
+<div class="account-info">
+  <label>
+    {{session.data.authenticated.user.email}}
+    <button {{action "signOut"}}>Logout</button>
+  </label>
+</div>
+
 <div class="settings-view">
   {{#each model.lifts as |lift|}}
     <div class="row">

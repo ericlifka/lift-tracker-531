@@ -1,0 +1,11 @@
+<label>
+  Username
+  <Input @value={{username}} />
+</label>
+
+<label>
+  Password
+  <Input @value={{password}} />
+</label>
+
+<button {{action "login" username password}}>Sign in</button>
