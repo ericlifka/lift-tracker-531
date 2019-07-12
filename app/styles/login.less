@@ -1,0 +1,42 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+
+  .login-form {
+    padding-top: 25px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  label {
+    flex-grow: 0;
+    font-size: 24px;
+    width: 100px;
+  }
+
+  input {
+    flex-grow: 1;
+    border: 1px solid @primary-medium;
+    padding: 7px 10px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: inherit;
+  }
+
+  button {
+    flex-grow: 1;
+    border: 3px solid @primary-medium;
+    border-radius: 5px;
+    padding: 7px 10px;
+    margin: 10px 0;
+    font-size: 28px;
+    color: @primary-medium;
+  }
+}

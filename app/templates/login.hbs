@@ -1,11 +1,19 @@
-<label>
-  Username
-  <Input @value={{username}} />
-</label>
+<TitleBar @title="Login" @showBackButton={{false}} @showSettingsButton={{false}} />
 
-<label>
-  Password
-  <Input @value={{password}} />
-</label>
+<div class="login">
+  <form class="login-form" {{action "login" email password on="submit"}}>
+    <div class="row">
+      <label for="email">Email</label>
+      <Input @id="email" @value={{email}} />
+    </div>
 
-<button {{action "login" username password}}>Sign in</button>
+    <div class="row">
+      <label for="password">Password</label>
+      <Input @id="password" @value={{password}} />
+    </div>
+
+    <div class="row">
+      <button type="submit">Login</button>
+    </div>
+  </form>
+</div>

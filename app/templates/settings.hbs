@@ -1,13 +1,11 @@
 <TitleBar @title="Settings" @settingsNavsBack={{true}} />
 
-<div class="account-info">
-  <label>
-    {{session.data.authenticated.user.email}}
-    <button {{action "signOut"}}>Logout</button>
-  </label>
-</div>
-
 <div class="settings-view">
+  <div class="account-info row">
+    <label>{{session.data.authenticated.user.email}}</label>
+    <button class="logout" {{action "signOut"}}><ion-icon name="log-out"></ion-icon></button>
+  </div>
+
   {{#each model.lifts as |lift|}}
     <div class="row">
       <button {{action "decreaseLift" lift.name}}>-5</button>
