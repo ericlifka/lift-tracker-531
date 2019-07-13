@@ -24,7 +24,8 @@ export default Controller.extend({
         return;
       }
 
-      let newLift = this.store.createRecord('lift', { name, max });
+      let userId = this.session.get('data.authenticated.user.uid');
+      let newLift = this.store.createRecord('lift', { name, max, userId });
       newLift.save()
         .then(() => {
           this.clearNewLiftForm();

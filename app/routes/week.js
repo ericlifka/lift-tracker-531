@@ -4,11 +4,15 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Route.extend(AuthenticatedRouteMixin, {
   store: service(),
+  session: service(),
 
   model({week_id}) {
-    return this.store.findAll('lift')
-      .then(lifts => {
-        return { lifts, week: week_id };
-      });
+    return this.store.query('lift', {
+      filter: {
+        userId: this.session.get('data.authenticated.user.uid')
+      }
+    }).then(lifts => {
+      return { lifts, week: week_id };
+    });
   }
 });

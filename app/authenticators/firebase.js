@@ -14,10 +14,7 @@ export default Base.extend({
 
   authenticate({ email, password }) {
     return firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(({ user }) => {
-        let { email, refreshToken } = user;
-        return {email, refreshToken};
-      });
+      .then(({ user }) => user);
   },
 
   invalidate() {

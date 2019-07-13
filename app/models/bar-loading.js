@@ -2,7 +2,8 @@ import DS from 'ember-data';
 const { Model, attr } = DS;
 
 export default Model.extend({
-  name: attr('string'),
-  max: attr('number'),
+  bar: attr('number'),
+  rounding: attr('number'),
+  plates: attr(),
   userId: attr('string')
 });
