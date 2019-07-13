@@ -5,10 +5,16 @@
   .row {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     margin: 7px;
+  }
+
+  .title {
+    text-decoration: underline;
+    margin: 15px 0 -5px 0;
   }
 
   .max {
@@ -27,7 +33,7 @@
     justify-content: flex-start;
   }
 
-  button {
+  .increment {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,11 +54,41 @@
     margin-bottom: 20px;
 
     .logout {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: none;
       background-color: inherit;
+      color: @primary-medium;
       box-shadow: none;
       font-size: 42px;
       margin: 0 0 0 64px;
+    }
+  }
+
+  .add-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    border-bottom: 3px solid @primary-medium;
+    font-size: 28px;
+    color: @primary-medium;
+
+    &.inline {
+      border-bottom: none;
+      font-size: 32px;
+    }
+
+    ion-icon {
+      margin-left: 10px;
+    }
+  }
+
+  .plates {
+    span,
+    button {
+      padding: 5px;
     }
   }
 }
