@@ -6,6 +6,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   store: service(),
 
   model({ week_id, lift_id }) {
-    return this.store.getWorkoutsModel(week_id, lift_id);
+    // return this.store.getWorkoutsModel(week_id, lift_id);
   }
 });

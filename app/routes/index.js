@@ -6,6 +6,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   store: service(),
 
   model() {
-    return this.store.getWeeksModel();
+    return [ '5-5-5', '3-3-3', '5-3-1', 'deload' ];
   }
 });

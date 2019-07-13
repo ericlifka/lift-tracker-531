@@ -6,6 +6,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   store: service(),
 
   model() {
-    return this.store.getSettingsModel();
+    return this.store.findAll('lift');
   }
 });

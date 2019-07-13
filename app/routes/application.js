@@ -9,6 +9,6 @@ export default Route.extend(ApplicationRouteMixin, {
   store: service(),
 
   model() {
-    return this.store.loadData();
+    // return this.store.loadData();
   }
 });

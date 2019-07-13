@@ -7,7 +7,7 @@
   </div>
 
   <div class="lifts">
-    {{#each model.lifts as |lift|}}
+    {{#each model as |lift|}}
       <div class="row">
         <button class="increment" {{action "decreaseLift" lift.name}}>-5</button>
         <span class="lift">{{capitalize lift.name}}</span>
@@ -15,12 +15,23 @@
         <button class="increment" {{action "increaseLift" lift.name}}>+5</button>
       </div>
     {{/each}}
-  </div>
 
-  <div class="row">
-    <button class="add-item" {{action "newLift"}}>
-      Add Lift <ion-icon name="add-circle-outline"></ion-icon>
-    </button>
+    <div class="row">
+      {{#if creatingLift}}
+        <button class="cancel-new-lift" {{action "cancelNewLift"}}>
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </button>
+        <Input class="new-lift-input new-name" @placeholder="name" @value={{newLiftName}} />
+        <Input class="new-lift-input new-max" @placeholder="45" @type="number" @value={{newLiftMax}} />
+        <button class="save-new-lift" {{action "saveNewLift" newLiftName newLiftMax}}>
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </button>
+      {{else}}
+        <button class="add-item" {{action "showliftInput"}}>
+          Add Lift <ion-icon name="add-circle-outline"></ion-icon>
+        </button>
+      {{/if}}
+    </div>
   </div>
 
   <div class="plates">

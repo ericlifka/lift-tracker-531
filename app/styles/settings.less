@@ -50,6 +50,37 @@
     .button-box-shadow(5px);
   }
 
+  .new-lift-input {
+    border: 1px solid @primary-medium;
+    padding: 7px 10px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: inherit;
+    flex-shrink: 1;
+
+    &.new-name {
+      width: 110px;
+      margin-right: 10px;
+    }
+    &.new-max {
+      width: 50px;
+    }
+  }
+  .cancel-new-lift,
+  .save-new-lift {
+    border: none;
+    font-size: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .save-new-lift {
+    color: @accent-accept;
+  }
+  .cancel-new-lift {
+    color: @accent-reject;
+  }
+
   .account-info {
     margin-bottom: 20px;
 
