@@ -9,10 +9,10 @@
   <div class="lifts">
     {{#each model as |lift|}}
       <div class="row">
-        <button class="increment" {{action "decreaseLift" lift.name}}>-5</button>
+        <button class="increment" {{action "decreaseLift" lift}}>-5</button>
         <span class="lift">{{capitalize lift.name}}</span>
         <span class="max">{{lift.max}}</span>
-        <button class="increment" {{action "increaseLift" lift.name}}>+5</button>
+        <button class="increment" {{action "increaseLift" lift}}>+5</button>
       </div>
     {{/each}}
 

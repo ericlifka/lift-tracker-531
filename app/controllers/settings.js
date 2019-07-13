@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
+import lift from '../routes/lift';
 
 export default Controller.extend({
   store: service(),
@@ -37,12 +38,14 @@ export default Controller.extend({
       this.clearNewLiftForm();
     },
 
-    increaseLift(liftId) {
-      // this.store.updateMax(liftId, 5);
+    increaseLift(lift) {
+      lift.set('max', lift.get('max') + 5);
+      lift.save();
     },
 
-    decreaseLift(liftId) {
-      // this.store.updateMax(liftId, -5);
+    decreaseLift(lift) {
+      lift.set('max', lift.get('max') - 5);
+      lift.save();
     }
   },
 
