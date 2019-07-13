@@ -10,7 +10,6 @@ export default Controller.extend({
   actions: {
     login(email, password) {
       return this.get('session').authenticate('authenticator:firebase', { email, password })
-        .then(() => this.transitionToRoute('index'));
     }
   }
 });

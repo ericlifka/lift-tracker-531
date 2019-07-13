@@ -6,13 +6,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
   store: service(),
   session: service(),
 
-  model({week_id}) {
-    return this.store.query('lift', {
-      filter: {
-        userId: this.session.get('data.authenticated.user.uid')
-      }
-    }).then(lifts => {
-      return { lifts, week: week_id };
-    });
+  model({ week_id }) {
+    let userId = this.session.get('data.authenticated.user.uid');
+
+    return this.store.query('lift', { filter: { userId } })
+      .then(lifts => ({
+        lifts, week: week_id
+      }));
   }
 });

@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import { inject as service } from '@ember/service';
 import { Promise, resolve } from 'rsvp';
 import { set } from '@ember/object';
 
@@ -7,16 +8,40 @@ import { runMigrations } from '../data/migrations';
 import { WEEK_IDS, applyWorkoutSpec } from '../utils/workout-specs';
 
 export default Service.extend({
-  loadData() {
-    return new Promise(resolve => {
-      let data = load('lift-data');
-      console.log('Loaded saved data:', data);
-      data = runMigrations(data);
-      console.log('Migrations run to update data:', data);
+  store: service(),
+  session: service(),
 
-      this.set('data', data);
-      resolve();
-    });
+  barLoading: null,
+
+  getBarLoading() {
+    let barLoading = this.get('barLoading');
+    if (barLoading) {
+      return resolve(barLoading);
+    }
+
+    let userId = this.session.get('data.authenticated.user.uid');
+
+    return this.store.findRecord('bar-loading', userId)
+      .then(barLoading => {
+        this.set('barLoading', barLoading);
+
+        return barLoading;
+      })
+      .catch(() => {
+        // clear fake record before creating new one
+        this.store.unloadRecord(this.store.getReference('bar-loading', userId).internalModel);
+
+        let barLoading = this.store.createRecord('bar-loading', {
+          id: userId,
+          bar: 45,
+          rounding: 5,
+          plates: [ 2.5, 5, 10, 25, 35, 45 ]
+        });
+        barLoading.save();
+        this.set('barLoading', barLoading);
+
+        return barLoading;
+      });
   },
 
   getWeeks() {
@@ -27,13 +52,10 @@ export default Service.extend({
     return resolve(this.get('data.lifts').map(lift => lift.name));
   },
 
-  createWorkout(weekId, max) {
-    // let barWeight = this.getBarWeight();
-    // let userPlates = this.getUsersPlates();
-    // let roundingFactor = this.getRoundingFactor();
-    let barWeight = 45;
-    let userPlates = [45, 35, 25, 10, 5, 2.5];
-    let roundingFactor = 5;
+  createWorkout(weekId, max, barLoading) {
+    let barWeight = barLoading.get('bar');
+    let userPlates = barLoading.get('plates').slice().sort((a, b) => b - a);
+    let roundingFactor = barLoading.get('rounding');
 
     let sets = [{
       name: "Workout",
@@ -48,33 +70,5 @@ export default Service.extend({
     }
 
     return sets;
-  },
-
-  getSettingsModel() {
-    return this.get('data');
-  },
-
-  updateMax(liftId, increment) {
-    let lift = this.get('data.lifts').find(lift => lift.name === liftId);
-    if (lift) {
-      set(lift, 'max', lift.max + increment);
-    }
-  },
-
-  getMax(liftId) {
-    let lift = this.get('data.lifts').find(lift => lift.name === liftId);
-    return lift ? lift.max : 0;
-  },
-
-  getBarWeight() {
-    return this.get('data.specifications.bar');
-  },
-
-  getRoundingFactor() {
-    return this.get('data.specifications.round');
-  },
-
-  getUsersPlates() {
-    return this.get('data.specifications.plates').sort((a, b) => b - a);
   }
 });

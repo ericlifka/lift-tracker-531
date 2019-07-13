@@ -2,12 +2,12 @@
 
 <div class="settings-view">
   <div class="account-info row">
-    <label>{{session.data.authenticated.user.email}}</label>
+    <label>{{model.email}}</label>
     <button class="logout" {{action "signOut"}}><ion-icon name="log-out"></ion-icon></button>
   </div>
 
   <div class="lifts">
-    {{#each model as |lift|}}
+    {{#each model.lifts as |lift|}}
       <div class="row">
         <button class="increment" {{action "decreaseLift" lift}}>-5</button>
         <span class="lift">{{capitalize lift.name}}</span>
@@ -37,7 +37,7 @@
   <div class="plates">
     <div class="row title">Plates</div>
     <div class="row">
-      {{#each model.specifications.plates as |plate|}}
+      {{#each model.barLoading.plates as |plate|}}
         <span>{{plate}}</span>
       {{/each}}
 
@@ -51,7 +51,7 @@
     <div class="row title">Bar</div>
     <div class="row">
       <button class="increment" {{action "decreaseBar"}}>-5</button>
-      <span class="max">{{model.specifications.bar}}</span>
+      <span class="max">{{model.barLoading.bar}}</span>
       <button class="increment" {{action "increaseBar"}}>+5</button>
     </div>
   </div>
