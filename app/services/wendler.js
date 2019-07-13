@@ -27,31 +27,27 @@ export default Service.extend({
     return resolve(this.get('data.lifts').map(lift => lift.name));
   },
 
-  getWorkoutsModel(weekId, liftId) {
-    return new Promise(resolve => {
-      let max = this.getMax(liftId);
-      let barWeight = this.getBarWeight();
-      let userPlates = this.getUsersPlates();
-      let roundingFactor = this.getRoundingFactor();
+  createWorkout(weekId, max) {
+    // let barWeight = this.getBarWeight();
+    // let userPlates = this.getUsersPlates();
+    // let roundingFactor = this.getRoundingFactor();
+    let barWeight = 45;
+    let userPlates = [45, 35, 25, 10, 5, 2.5];
+    let roundingFactor = 5;
 
-      let sets = [{
-        name: "Workout",
-        movements: applyWorkoutSpec(weekId, max, barWeight, userPlates, roundingFactor)
-      }];
+    let sets = [{
+      name: "Workout",
+      movements: applyWorkoutSpec(weekId, max, barWeight, userPlates, roundingFactor)
+    }];
 
-      if (weekId !== "deload") {
-        sets.unshift({
-          name: "Warmup",
-          movements: applyWorkoutSpec('warmup', max, barWeight, userPlates, roundingFactor)
-        });
-      }
-
-      resolve({
-        sets,
-        lift: liftId,
-        week: weekId
+    if (weekId !== "deload") {
+      sets.unshift({
+        name: "Warmup",
+        movements: applyWorkoutSpec('warmup', max, barWeight, userPlates, roundingFactor)
       });
-    });
+    }
+
+    return sets;
   },
 
   getSettingsModel() {
