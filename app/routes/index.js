@@ -3,9 +3,9 @@ import { inject as service } from '@ember/service';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Route.extend(AuthenticatedRouteMixin, {
-  store: service(),
+  wendler: service(),
 
   model() {
-    return [ '5-5-5', '3-3-3', '5-3-1', 'deload' ];
+    return this.wendler.getWeeks();
   }
 });

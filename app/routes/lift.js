@@ -8,8 +8,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
   wendler: service(),
 
   model({ week_id, lift_id }) {
-    // return this.store.getWorkoutsModel(week_id, lift_id);
-
     return this.store.find('lift', lift_id)
       .then(lift => {
         let sets = this.wendler.createWorkout(week_id, lift.get('max'));

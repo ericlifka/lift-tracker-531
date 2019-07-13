@@ -1,6 +1,6 @@
 import { calcPlates, roundToFactor } from './plate-math';
 
-export const week_specs = {
+export const WEEK_SPECS = {
   'warmup': [
     { percent: .4, reps: 5 },
     { percent: .5, reps: 5 },
@@ -28,8 +28,10 @@ export const week_specs = {
   ]
 };
 
+export const WEEK_IDS = Object.keys(WEEK_SPECS).filter(i => i !== 'warmup');
+
 export const getWorkoutSpec = weekId =>
-  week_specs[ weekId ] || week_specs[ 'warmup' ]
+WEEK_SPECS[ weekId ] || WEEK_SPECS[ 'warmup' ]
 
 export const applyWorkoutSpec =
   (week, max, bar, userPlates, roundingFactor, spec = getWorkoutSpec(week)) =>

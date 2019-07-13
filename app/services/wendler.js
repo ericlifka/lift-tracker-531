@@ -4,7 +4,7 @@ import { set } from '@ember/object';
 
 import { load } from '../data/access';
 import { runMigrations } from '../data/migrations';
-import { applyWorkoutSpec } from '../utils/workout-specs';
+import { WEEK_IDS, applyWorkoutSpec } from '../utils/workout-specs';
 
 export default Service.extend({
   loadData() {
@@ -19,8 +19,8 @@ export default Service.extend({
     });
   },
 
-  getWeeksModel() {
-    return resolve(['5-5-5', '3-3-3', '5-3-1', 'deload']);
+  getWeeks() {
+    return resolve(WEEK_IDS);
   },
 
   getLiftsModel() {
