@@ -14,6 +14,11 @@ export default Component.extend({
     },
     cancelEdit() {
       this.set('editingLifts', false);
+    },
+
+    deleteLift(lift) {
+      lift.deleteRecord();
+      lift.save();
     }
   }
 });

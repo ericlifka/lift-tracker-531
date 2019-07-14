@@ -2,9 +2,7 @@
 
   {{#each @lifts as |lift|}}
     <div class="row">
-      <button class="delete-lift" {{action "deleteLift" lift}}>
-        <ion-icon name="close-circle-outline"></ion-icon>
-      </button>
+      <ConfirmDelete @deleteAction={{action "deleteLift" lift}} />
       <Input class="lift-input name" @value={{lift.name}} />
       <Input class="lift-input max" @type="number" @value={{lift.max}} />
     </div>
