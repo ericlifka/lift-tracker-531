@@ -10,7 +10,7 @@
   {{#if showAccountTab}}
     <SettingsAccountControl @email={{model.email}} />
   {{else if showLiftsTab}}
-    <SettingsLiftsControl @lifts={{model.lifts}} />
+    <SettingsLiftsControl @model={{model.lifts}} />
   {{else if showBarLoadingTab}}
     <SettingsBarLoadingControl @barLoading={{model.barLoading}} />
   {{/if}}

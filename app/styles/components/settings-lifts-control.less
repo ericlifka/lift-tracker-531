@@ -15,6 +15,10 @@
     &.right {
       justify-content: flex-end;
     }
+
+    &.spread {
+      justify-content: space-between;
+    }
   }
 
   .increment {
@@ -49,18 +53,59 @@
     justify-content: flex-end;
   }
 
-  .add-item {
+  .edit,
+  .save-edit,
+  .cancel-edit {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     border: none;
     font-size: 28px;
-    color: @primary-medium;
-    border-bottom: 2px solid @primary-light;
     margin-top: 50px;
 
     ion-icon {
-      margin-right: 10px;
+      margin: 0 5px -5px 0;
+    }
+  }
+  .edit {
+    color: @primary-medium;
+  }
+  .save-edit {
+    color: @accent-accept;
+  }
+  .cancel-edit {
+    color: @accent-reject;
+  }
+
+  .add-empty-lift {
+    border: none;
+    font-size: 28px;
+    color: @accent-accept;
+  }
+
+  .delete-container {
+    width: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 7px;
+  }
+
+  .lift-input {
+    border: 1px solid @primary-medium;
+    padding: 7px 10px;
+    border-radius: 3px;
+    font-size: 16px;
+    color: inherit;
+    margin-right: 10px;
+
+    &.name-input {
+      flex-grow: 1;
+    }
+    &.max-input {
+      width: 40px;
     }
   }
 }
