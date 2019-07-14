@@ -1,0 +1,21 @@
+<div class="plates">
+  <div class="row title">Plates</div>
+  <div class="row">
+    {{#each @barLoading.plates as |plate|}}
+      <span>{{plate}}</span>
+    {{/each}}
+
+    <button class="add-item inline" {{action "newPlate"}}>
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </button>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="row title">Bar</div>
+  <div class="row">
+    <button class="increment" {{action "decreaseBar" @barLoading}}>-5</button>
+    <span class="max">{{@barLoading.bar}}</span>
+    <button class="increment" {{action "increaseBar" @barLoading}}>+5</button>
+  </div>
+</div>
