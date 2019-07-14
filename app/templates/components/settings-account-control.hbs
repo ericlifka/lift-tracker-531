@@ -1,4 +1,9 @@
-  <div class="row">
-    <label>{{@email}}</label>
-    <button class="logout" {{action "signOut"}}><ion-icon name="log-out"></ion-icon></button>
-  </div>
+<div class="row">
+  <label>Account:</label>
+  <span>{{@email}}</span>
+</div>
+<div class="row right">
+  <button class="logout" {{action "signOut"}}>
+    <ion-icon name="log-out"></ion-icon> logout
+  </button>
+</div>

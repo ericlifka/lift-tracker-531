@@ -1,3 +1,40 @@
 .settings-account-control {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
 
+  .row {
+    width: @capped-width;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 75px 0;
+
+    &.right {
+      justify-content: flex-end;
+    }
+
+    label {
+      flex-grow: 1;
+      font-size: 22px;
+    }
+
+    .logout {
+      font-size: 24px;
+      border: none;
+      color: @accent-reject;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        font-size: 30px;
+        margin-right: 7px;
+      }
+    }
+  }
 }
