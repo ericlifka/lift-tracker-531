@@ -1,3 +1,66 @@
 .settings-lifts-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
 
+  .row {
+    width: @capped-width;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 15px 0;
+
+    &.right {
+      justify-content: flex-end;
+    }
+  }
+
+  .increment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: @primary-lightest;
+    color: @primary-medium;
+    border: 1px solid @primary-medium;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    font-weight: bolder;
+    font-size: 18px;
+    .button-box-shadow(5px);
+  }
+
+  .name {
+    flex-grow: 1;
+    min-width: 100px;
+    margin: 0 10px 0 20px;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .max {
+    font-weight: bold;
+    font-size: 28px;
+    min-width: 60px;
+    margin-right: 25px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .add-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    font-size: 28px;
+    color: @primary-medium;
+    border-bottom: 2px solid @primary-light;
+    margin-top: 50px;
+
+    ion-icon {
+      margin-right: 10px;
+    }
+  }
 }
