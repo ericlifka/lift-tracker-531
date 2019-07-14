@@ -1,7 +1,17 @@
 <TitleBar @title="Settings" @settingsNavsBack={{true}} />
 
 <div class="settings-view">
-  <SettingsAccountControl @email={{model.email}} />
-  <SettingsLiftsControl @lifts={{model.lifts}} />
-  <SettingsBarLoadingControl @barLoading={{model.barLoading}} />
+  <div class="tabs">
+    <button class={{if showAccountTab "active"}} {{action "showAccountTab"}}>Account</button>
+    <button class={{if showLiftsTab "active"}} {{action "showLiftsTab"}}>Lifts</button>
+    <button class={{if showBarLoadingTab "active"}} {{action "showBarLoadingTab"}}>Weights</button>
+  </div>
+
+  {{#if showAccountTab}}
+    <SettingsAccountControl @email={{model.email}} />
+  {{else if showLiftsTab}}
+    <SettingsLiftsControl @lifts={{model.lifts}} />
+  {{else if showBarLoadingTab}}
+    <SettingsBarLoadingControl @barLoading={{model.barLoading}} />
+  {{/if}}
 </div>

@@ -1,6 +1,33 @@
 .settings-view {
   display: flex;
   flex-direction: column;
+
+  .tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid @primary-medium;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    background-color: @primary-lightest;
+
+    button {
+      font-size: 24px;
+      border: none;
+      color: @primary-medium;
+      width: 110px;
+      padding: 10px 0;
+      margin-bottom: -1px;
+
+      &.active {
+        background-color: #ffffff;
+        border-left: 1px solid @primary-medium;
+        border-right: 1px solid @primary-medium;
+        border-bottom: 1px solid #ffffff;
+      }
+    }
+  }
 }
 //   .row {
 //     display: flex;
