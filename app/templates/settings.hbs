@@ -9,26 +9,45 @@
   <div class="lifts">
     {{#each model.lifts as |lift|}}
       <div class="row">
-        <button class="increment" {{action "decreaseLift" lift}}>-5</button>
-        <span class="lift">{{capitalize lift.name}}</span>
-        <span class="max">{{lift.max}}</span>
-        <button class="increment" {{action "increaseLift" lift}}>+5</button>
+        {{#if editingLifts}}
+          <button class="delete-lift" {{action "deleteLift" lift}}>
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </button>
+          <Input class="lift-input name" @value={{lift.name}} />
+          <Input class="lift-input max" @type="number" @value={{lift.max}} />
+        {{else}}
+          <button class="increment" {{action "decreaseLift" lift}}>-5</button>
+          <span class="lift">{{capitalize lift.name}}</span>
+          <span class="max">{{lift.max}}</span>
+          <button class="increment" {{action "increaseLift" lift}}>+5</button>
+        {{/if}}
       </div>
     {{/each}}
 
     <div class="row">
-      {{#if creatingLift}}
+      {{#if editingLifts}}
         <button class="cancel-new-lift" {{action "cancelNewLift"}}>
           <ion-icon name="close-circle-outline"></ion-icon>
         </button>
-        <Input class="new-lift-input new-name" @placeholder="name" @value={{newLiftName}} />
-        <Input class="new-lift-input new-max" @placeholder="45" @type="number" @value={{newLiftMax}} />
+        <Input class="lift-input name" @placeholder="name" @value={{newLiftName}} />
+        <Input class="lift-input max" @placeholder="45" @type="number" @value={{newLiftMax}} />
         <button class="save-new-lift" {{action "saveNewLift" newLiftName newLiftMax}}>
           <ion-icon name="checkmark-circle-outline"></ion-icon>
         </button>
+      {{/if}}
+    </div>
+
+    <div class="row">
+      {{#if editingLifts}}
+        <button class="cancel-edit" {{action "cancelLiftChanges"}}>
+          Cancel <ion-icon name="close"></ion-icon>
+        </button>
+        <button class="save-edit" {{action "saveLiftChanges"}}>
+          Save <ion-icon name="save"></ion-icon>
+        </button>
       {{else}}
         <button class="add-item" {{action "showliftInput"}}>
-          Add Lift <ion-icon name="add-circle-outline"></ion-icon>
+          Edit <ion-icon name="create"></ion-icon>
         </button>
       {{/if}}
     </div>
@@ -50,9 +69,9 @@
   <div class="bar">
     <div class="row title">Bar</div>
     <div class="row">
-      <button class="increment" {{action "decreaseBar"}}>-5</button>
+      <button class="increment" {{action "decreaseBar" model.barLoading}}>-5</button>
       <span class="max">{{model.barLoading.bar}}</span>
-      <button class="increment" {{action "increaseBar"}}>+5</button>
+      <button class="increment" {{action "increaseBar" model.barLoading}}>+5</button>
     </div>
   </div>
 </div>

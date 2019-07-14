@@ -12,6 +12,29 @@
     margin: 7px;
   }
 
+  .account-info {
+    margin-bottom: 20px;
+
+    .logout {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: inherit;
+      color: @primary-medium;
+      box-shadow: none;
+      font-size: 42px;
+      margin: 0 0 0 64px;
+    }
+  }
+
+  .plates {
+    span,
+    button {
+      padding: 5px;
+    }
+  }
+
   .title {
     text-decoration: underline;
     margin: 15px 0 -5px 0;
@@ -50,7 +73,7 @@
     .button-box-shadow(5px);
   }
 
-  .new-lift-input {
+  .lift-input {
     border: 1px solid @primary-medium;
     padding: 7px 10px;
     border-radius: 3px;
@@ -58,14 +81,15 @@
     color: inherit;
     flex-shrink: 1;
 
-    &.new-name {
+    &.name {
       width: 110px;
       margin-right: 10px;
     }
-    &.new-max {
+    &.max {
       width: 50px;
     }
   }
+
   .cancel-new-lift,
   .save-new-lift {
     border: none;
@@ -79,22 +103,6 @@
   }
   .cancel-new-lift {
     color: @accent-reject;
-  }
-
-  .account-info {
-    margin-bottom: 20px;
-
-    .logout {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border: none;
-      background-color: inherit;
-      color: @primary-medium;
-      box-shadow: none;
-      font-size: 42px;
-      margin: 0 0 0 64px;
-    }
   }
 
   .add-item {
@@ -115,11 +123,22 @@
       margin-left: 10px;
     }
   }
-
-  .plates {
-    span,
-    button {
-      padding: 5px;
-    }
+  .cancel-edit,
+  .save-edit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    border-bottom: 3px solid;
+    font-size: 28px;
+  }
+  .cancel-edit {
+    color: @accent-reject;
+    border-color: @accent-reject;
+    margin-right: 50px;
+  }
+  .save-edit {
+    color: @accent-accept;
+    border-color: @accent-accept;
   }
 }

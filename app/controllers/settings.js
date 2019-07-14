@@ -6,7 +6,7 @@ export default Controller.extend({
   store: service(),
   session: service(),
 
-  creatingLift: false,
+  editingLifts: false,
   newLiftName: '',
   newLiftMax: '',
 
@@ -16,7 +16,7 @@ export default Controller.extend({
     },
 
     showliftInput() {
-      this.set('creatingLift', true);
+      this.set('editingLifts', true);
     },
 
     saveNewLift(name, max) {
@@ -35,6 +35,10 @@ export default Controller.extend({
         });
     },
 
+    cancelLiftChanges() {
+      this.set('editingLifts', false);
+    },
+
     cancelNewLift() {
       this.clearNewLiftForm();
     },
@@ -47,12 +51,22 @@ export default Controller.extend({
     decreaseLift(lift) {
       lift.set('max', lift.get('max') - 5);
       lift.save();
+    },
+
+    decreaseBar(barLoading) {
+      barLoading.set('bar', barLoading.get('bar') - 5);
+      barLoading.save();
+    },
+
+    increaseBar(barLoading) {
+      barLoading.set('bar', barLoading.get('bar') + 5);
+      barLoading.save();
     }
   },
 
   clearNewLiftForm() {
     this.set('newLiftName', '');
     this.set('newLiftMax', '');
-    this.set('creatingLift', false);
+    this.set('editingLifts', false);
   }
 });
