@@ -1,3 +1,117 @@
 .settings-bar-loading-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
 
+  .row {
+    width: @capped-width;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 35px 0;
+
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.right {
+      justify-content: flex-end;
+    }
+
+    &.spread {
+      justify-content: space-between;
+    }
+
+    &.space-around {
+      justify-content: space-around;
+    }
+
+    &.hug {
+      margin-top: -20px;
+    }
+  }
+
+  .edit,
+  .save-edit,
+  .cancel-edit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 28px;
+    margin-top: 50px;
+
+    ion-icon {
+      margin: 0 5px -5px 0;
+    }
+  }
+  .edit {
+    color: @primary-medium;
+  }
+  .save-edit {
+    color: @accent-accept;
+  }
+  .cancel-edit {
+    color: @accent-reject;
+  }
+
+  .bar,
+  .max {
+    font-size: 28px;
+  }
+
+  .plates {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 20px;
+
+    &::before {
+      content: "[";
+      padding-right: 5px;
+      font-size: 24px;
+      margin-top: -5px;
+    }
+    &::after {
+      content: "]";
+      font-size: 24px;
+      margin-top: -5px;
+    }
+    .plate::after {
+      content: ",";
+      padding-right: 5px;
+    }
+    .plate:last-child::after {
+      content: "";
+    }
+    &::before,
+    &::after,
+    .plate::after {
+      color: @primary-dark;
+    }
+  }
+
+  .weight-chooser {
+    border: 1px solid @primary-medium;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    color: @primary-medium;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button-box-shadow(5px);
+
+    &.active {
+      background-color: @primary-medium;
+      color: #ffffff;
+    }
+  }
 }

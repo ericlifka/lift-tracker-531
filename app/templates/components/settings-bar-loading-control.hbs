@@ -1,21 +1,73 @@
-<div class="plates">
-  <div class="row title">Plates</div>
-  <div class="row">
-    {{#each @barLoading.plates as |plate|}}
-      <span>{{plate}}</span>
-    {{/each}}
+{{#if editing}}
+{{!--
+      <button class="add-item inline" {{action "newPlate"}}>
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </button> --}}
 
-    <button class="add-item inline" {{action "newPlate"}}>
-      <ion-icon name="add-circle-outline"></ion-icon>
+  <div class="row left">
+    <span class="title">Bar weight</span>
+  </div>
+  <div class="row space-around hug">
+    {{#each commonBarWeights as |weight|}}
+      <button class={{if (eq weight @model.bar)
+                      "weight-chooser active"
+                      "weight-chooser"}}
+              {{action "setBarWeight" weight}}>
+        {{weight}}
+      </button>
+    {{/each}}
+  </div>
+
+  <div class="row left">
+    <span class="title">Round to nearest</span>
+  </div>
+  <div class="row space-around hug">
+    {{#each commonRoundingThresholds as |weight|}}
+      <button class={{if (eq weight @model.rounding)
+                      "weight-chooser active"
+                      "weight-chooser"}}
+              {{action "setRoundingWeight" weight}}>
+        {{weight}}
+      </button>
+    {{/each}}
+  </div>
+
+  <div class="row spread">
+    <button class="cancel-edit" {{action "cancelEdit"}}>
+      <ion-icon name="close-circle-outline"></ion-icon> cancel
+    </button>
+    <button class="save-edit" {{action "saveEdit"}}>
+      <ion-icon name="save"></ion-icon> save
     </button>
   </div>
-</div>
 
-<div class="bar">
-  <div class="row title">Bar</div>
-  <div class="row">
-    <button class="increment" {{action "decreaseBar" @barLoading}}>-5</button>
-    <span class="max">{{@barLoading.bar}}</span>
-    <button class="increment" {{action "increaseBar" @barLoading}}>+5</button>
+{{else}}
+
+  <div class="row spread">
+    <span clas="title">Bar weight</span>
+    <span class="bar">{{@model.bar}}</span>
   </div>
-</div>
+
+  <div class="row spread">
+    <span clas="title">Round to nearest</span>
+    <span class="max">{{@model.rounding}}</span>
+  </div>
+
+  <div class="row left">
+    <span class="title">Available plates</span>
+  </div>
+  <div class="row right hug">
+    <span class="plates">
+      {{#each @model.plates as |plate|}}
+        <span class="plate">{{plate}}</span>
+      {{/each}}
+    </span>
+  </div>
+
+  <div class="row right">
+    <button class="edit" {{action "showEdit"}}>
+      <ion-icon name="create"></ion-icon> edit
+    </button>
+  </div>
+
+{{/if}}
