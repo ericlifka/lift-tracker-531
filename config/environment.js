@@ -4,7 +4,7 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'lift-tracker-531',
     environment,
-    rootURL: '/',
+    rootURL: '/lift-tracker-531',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {

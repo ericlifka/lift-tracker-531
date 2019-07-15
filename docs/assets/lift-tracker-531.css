@@ -1,0 +1,531 @@
+.selection-list {
+  display: flex;
+  flex-direction: column;
+}
+.selection-list a {
+  font-size: 24px;
+  text-decoration: none;
+  color: #5bc0eb;
+  border-bottom: 2px solid #b4e2f5;
+  margin-bottom: 25px;
+  padding-left: 15px;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #ffffff;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: #224656;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+button {
+  cursor: pointer;
+  background-color: transparent;
+  font-family: inherit;
+}
+.confirm-delete button {
+  display: flex;
+  align-items: center;
+  border: none;
+  border: 2px solid red;
+  color: red;
+  font-size: 14px;
+  border-radius: 12px;
+}
+.confirm-delete button.initial {
+  padding: 0;
+}
+.confirm-delete button.secondary {
+  padding: 0 5px;
+}
+.confirm-delete button ion-icon {
+  font-size: 20px;
+}
+.settings-account-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+}
+.settings-account-control .row {
+  width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 0 75px 0;
+}
+.settings-account-control .row.right {
+  justify-content: flex-end;
+}
+.settings-account-control .row label {
+  flex-grow: 1;
+  font-size: 22px;
+}
+.settings-account-control .row .logout {
+  font-size: 24px;
+  border: none;
+  color: red;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.settings-account-control .row .logout ion-icon {
+  font-size: 30px;
+  margin-right: 7px;
+}
+.settings-bar-loading-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+}
+.settings-bar-loading-control .row {
+  width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 35px 0;
+}
+.settings-bar-loading-control .row.left {
+  justify-content: flex-start;
+}
+.settings-bar-loading-control .row.right {
+  justify-content: flex-end;
+}
+.settings-bar-loading-control .row.spread {
+  justify-content: space-between;
+}
+.settings-bar-loading-control .row.space-around {
+  justify-content: space-around;
+}
+.settings-bar-loading-control .row.hug {
+  margin-top: -20px;
+}
+.settings-bar-loading-control .row.wrap {
+  flex-wrap: wrap;
+}
+.settings-bar-loading-control .edit,
+.settings-bar-loading-control .save-edit,
+.settings-bar-loading-control .cancel-edit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 28px;
+  margin-top: 50px;
+}
+.settings-bar-loading-control .edit ion-icon,
+.settings-bar-loading-control .save-edit ion-icon,
+.settings-bar-loading-control .cancel-edit ion-icon {
+  margin: 0 5px -5px 0;
+}
+.settings-bar-loading-control .edit {
+  color: #5bc0eb;
+}
+.settings-bar-loading-control .save-edit {
+  color: green;
+}
+.settings-bar-loading-control .cancel-edit {
+  color: red;
+}
+.settings-bar-loading-control .bar,
+.settings-bar-loading-control .max {
+  font-size: 28px;
+}
+.settings-bar-loading-control .plates {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 20px;
+}
+.settings-bar-loading-control .plates::before {
+  content: "[";
+  padding-right: 5px;
+  font-size: 24px;
+  margin-top: -5px;
+}
+.settings-bar-loading-control .plates::after {
+  content: "]";
+  font-size: 24px;
+  margin-top: -5px;
+}
+.settings-bar-loading-control .plates .plate::after {
+  content: ",";
+  padding-right: 5px;
+}
+.settings-bar-loading-control .plates .plate:last-child::after {
+  content: "";
+}
+.settings-bar-loading-control .plates::before,
+.settings-bar-loading-control .plates::after,
+.settings-bar-loading-control .plates .plate::after {
+  color: #679cb3;
+}
+.settings-bar-loading-control .plate-editor {
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  margin: 20px 50px 0 0;
+}
+.settings-bar-loading-control .plate-editor .plate {
+  width: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+.settings-bar-loading-control .delete-container {
+  width: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 7px;
+}
+.settings-bar-loading-control .add-plate {
+  display: flex;
+  align-items: center;
+  border: none;
+  color: green;
+  font-size: 14px;
+}
+.settings-bar-loading-control .add-plate ion-icon {
+  font-size: 30px;
+}
+.settings-bar-loading-control .new-plate {
+  border: 1px solid #5bc0eb;
+  padding: 7px 10px;
+  font-size: 16px;
+  color: inherit;
+  width: 40px;
+  border-radius: 3px;
+  margin: 0 9px 0 8px;
+}
+.settings-bar-loading-control .weight-chooser {
+  border: 1px solid #5bc0eb;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  color: #5bc0eb;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 5px 0px #cfcece;
+}
+.settings-bar-loading-control .weight-chooser.active,
+.settings-bar-loading-control .weight-chooser:active {
+  box-shadow: none;
+}
+.settings-bar-loading-control .weight-chooser.active {
+  background-color: #5bc0eb;
+  color: #ffffff;
+}
+.settings-bar-loading-control .warning {
+  color: #883000;
+}
+.settings-bar-loading-control .warning ion-icon {
+  color: #ffae42;
+  margin-right: 7px;
+}
+.settings-lifts-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 24px;
+}
+.settings-lifts-control .row {
+  width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 15px 0;
+}
+.settings-lifts-control .row.right {
+  justify-content: flex-end;
+}
+.settings-lifts-control .row.spread {
+  justify-content: space-between;
+}
+.settings-lifts-control .increment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f9fd;
+  color: #5bc0eb;
+  border: 1px solid #5bc0eb;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  font-weight: bolder;
+  font-size: 18px;
+  box-shadow: 0 0 5px 0px #cfcece;
+}
+.settings-lifts-control .increment.active,
+.settings-lifts-control .increment:active {
+  box-shadow: none;
+}
+.settings-lifts-control .name {
+  flex-grow: 1;
+  min-width: 100px;
+  margin: 0 10px 0 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+.settings-lifts-control .max {
+  font-weight: bold;
+  font-size: 28px;
+  min-width: 60px;
+  margin-right: 25px;
+  display: flex;
+  justify-content: flex-end;
+}
+.settings-lifts-control .edit,
+.settings-lifts-control .save-edit,
+.settings-lifts-control .cancel-edit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 28px;
+  margin-top: 50px;
+}
+.settings-lifts-control .edit ion-icon,
+.settings-lifts-control .save-edit ion-icon,
+.settings-lifts-control .cancel-edit ion-icon {
+  margin: 0 5px -5px 0;
+}
+.settings-lifts-control .edit {
+  color: #5bc0eb;
+}
+.settings-lifts-control .save-edit {
+  color: green;
+}
+.settings-lifts-control .cancel-edit {
+  color: red;
+}
+.settings-lifts-control .add-empty-lift {
+  border: none;
+  font-size: 28px;
+  color: green;
+}
+.settings-lifts-control .delete-container {
+  width: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 7px;
+}
+.settings-lifts-control .lift-input {
+  border: 1px solid #5bc0eb;
+  padding: 7px 10px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: inherit;
+  margin-right: 10px;
+}
+.settings-lifts-control .lift-input.name-input {
+  flex-grow: 1;
+}
+.settings-lifts-control .lift-input.max-input {
+  width: 40px;
+}
+.title-bar {
+  font-size: 36px;
+  margin: 0 0 20px 0;
+  padding: 5px;
+  background-color: #5bc0eb;
+  color: #f0f9fd;
+  box-shadow: 0 0 15px 0 #cfcece;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.settings-button-wrapper {
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+  right: 0px;
+}
+.settings-button-wrapper .nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85px;
+  height: 85px;
+  border-radius: 100%;
+  font-size: 32px;
+  border: 3px solid #5bc0eb;
+  color: #5bc0eb;
+  margin-top: -25px;
+  background-color: #f0f9fd;
+}
+.settings-button-wrapper .nav-button ion-icon {
+  margin-bottom: -15px;
+}
+.settings-button-wrapper .nav-button {
+  margin-right: -25px;
+}
+.settings-button-wrapper .nav-button ion-icon {
+  margin-left: -15px;
+}
+.back-button-wrapper {
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+  left: 0px;
+}
+.back-button-wrapper .nav-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85px;
+  height: 85px;
+  border-radius: 100%;
+  font-size: 32px;
+  border: 3px solid #5bc0eb;
+  color: #5bc0eb;
+  margin-top: -25px;
+  background-color: #f0f9fd;
+}
+.back-button-wrapper .nav-button ion-icon {
+  margin-bottom: -15px;
+}
+.back-button-wrapper .nav-button {
+  margin-left: -25px;
+}
+.back-button-wrapper .nav-button ion-icon {
+  margin-right: -15px;
+}
+.workout-set {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #5bc0eb;
+  border-radius: 10px;
+  margin: 0 10px 10px 10px;
+  padding-bottom: 6px;
+  box-shadow: 0px 4px 8px -2px #cfcece;
+}
+.workout-set .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.workout-set .row.lift {
+  font-size: 18px;
+  padding: 10px 18px;
+  color: #224656;
+  border-bottom: 1px solid #b4e2f5;
+}
+.workout-set .row.title {
+  font-size: 18px;
+  font-weight: bolder;
+  color: #f0f9fd;
+  background-color: #5bc0eb;
+  padding: 5px 8px;
+}
+.workout-set .row .weight {
+  min-width: 35px;
+}
+.workout-set .row .label {
+  font-size: 14px;
+  margin-bottom: -2px;
+  margin-left: 5px;
+  margin-right: 20px;
+}
+.workout-set .row .count {
+  flex-grow: 1;
+  font-size: 16px;
+}
+.workout-set .row .plates {
+  align-self: flex-end;
+  margin-left: 20px;
+  color: #679cb3;
+}
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 15px;
+}
+.login .login-form {
+  padding-top: 25px;
+}
+.login .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.login label {
+  flex-grow: 0;
+  font-size: 24px;
+  width: 100px;
+}
+.login input {
+  flex-grow: 1;
+  border: 1px solid #5bc0eb;
+  padding: 7px 10px;
+  border-radius: 3px;
+  font-size: 16px;
+  color: inherit;
+}
+.login button {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #5bc0eb;
+  border-radius: 5px;
+  padding: 7px 10px;
+  margin: 10px 0;
+  font-size: 28px;
+  color: #5bc0eb;
+}
+.login button ion-icon {
+  font-size: 32px;
+  margin-right: 7px;
+}
+.settings-view {
+  display: flex;
+  flex-direction: column;
+}
+.settings-view .tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #5bc0eb;
+  margin-top: -20px;
+  margin-bottom: 20px;
+  background-color: #f0f9fd;
+}
+.settings-view .tabs button {
+  font-size: 24px;
+  border: none;
+  color: #5bc0eb;
+  width: 110px;
+  padding: 10px 0;
+  margin-bottom: -1px;
+}
+.settings-view .tabs button.active {
+  background-color: #ffffff;
+  border-left: 1px solid #5bc0eb;
+  border-right: 1px solid #5bc0eb;
+  border-bottom: 1px solid #ffffff;
+}
+/*# sourceMappingURL=/assets/lift-tracker-531.css.map */
