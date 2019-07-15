@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  showAccountTab: true,
-  showLiftsTab: false,
+  showAccountTab: false,
+  showLiftsTab: true,
   showBarLoadingTab: false,
 
   actions: {

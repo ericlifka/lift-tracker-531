@@ -6,7 +6,7 @@
         <ConfirmDelete @deleteAction={{action "deleteLift" lift}} />
       </div>
       <Input class="lift-input name-input" @value={{lift.name}} @placeholder="name" />
-      <Input class="lift-input max-input" @type="number" @value={{lift.max}} @placeholder=45 />
+      <Input class="lift-input max-input" @type="number" @value={{lift.max}} @placeholder="45" />
     </div>
   {{/each}}
 
@@ -16,7 +16,7 @@
         <ConfirmDelete @deleteAction={{action "deletePending" lift}} />
       </div>
       <Input class="lift-input name-input" @value={{lift.name}} @placeholder="name" />
-      <Input class="lift-input max-input" @type="number" @value={{lift.max}} @placeholder=45 />
+      <Input class="lift-input max-input" @type="number" @value={{lift.max}} @placeholder="45" />
     </div>
   {{/each}}
 

@@ -69,7 +69,7 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
   });
   QUnit.test('components/settings-bar-loading-control.js', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'components/settings-bar-loading-control.js should pass ESLint\n\n9:3 - Only string, number, symbol, boolean, null, undefined, and function are allowed as default properties (ember/avoid-leaking-state-in-ember-objects)\n10:3 - Only string, number, symbol, boolean, null, undefined, and function are allowed as default properties (ember/avoid-leaking-state-in-ember-objects)\n12:23 - Use brace expansion (ember/use-brace-expansion)');
+    assert.ok(true, 'components/settings-bar-loading-control.js should pass ESLint\n\n');
   });
   QUnit.test('components/settings-lifts-control.js', function (assert) {
     assert.expect(1);
@@ -182,7 +182,7 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
   });
   QUnit.test('lift-tracker-531/templates/components/settings-lifts-control.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'lift-tracker-531/templates/components/settings-lifts-control.hbs should pass TemplateLint.\n\nlift-tracker-531/templates/components/settings-lifts-control.hbs\n  9:90  error  Attribute @placeholder should be either quoted or wrapped in mustaches  no-quoteless-attributes\n  19:90  error  Attribute @placeholder should be either quoted or wrapped in mustaches  no-quoteless-attributes\n');
+    assert.ok(true, 'lift-tracker-531/templates/components/settings-lifts-control.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('lift-tracker-531/templates/components/title-bar.hbs', function (assert) {
     assert.expect(1);

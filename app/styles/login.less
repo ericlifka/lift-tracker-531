@@ -2,10 +2,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 15px;
+  padding-top: 25px;
 
-  .login-form {
-    padding-top: 25px;
+  .column {
+    display: flex;
+    flex-direction: column;
+
+    &.grow {
+      flex-grow: 1;
+    }
   }
 
   .row {
@@ -13,12 +18,12 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 15px;
+    width: @capped-width;
   }
 
   label {
-    flex-grow: 0;
+    margin: 0 15px 15px 0;
     font-size: 24px;
-    width: 100px;
   }
 
   input {
@@ -28,6 +33,7 @@
     border-radius: 3px;
     font-size: 16px;
     color: inherit;
+    margin: 0 0 15px 0;
   }
 
   button {

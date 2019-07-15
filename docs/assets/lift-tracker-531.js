@@ -125,11 +125,19 @@
 
   var _default = Ember.Component.extend({
     classNames: ['settings-bar-loading-control'],
-    editing: false,
-    newPlateValue: '',
-    commonBarWeights: [15, 25, 35, 45, 55],
-    commonRoundingThresholds: [1, 2.5, 5, 10],
-    showWeightsWarning: Ember.computed('model.rounding', 'model.plates.[]', function () {
+
+    init(...args) {
+      this._super(...args);
+
+      this.setProperties({
+        editing: false,
+        newPlateValue: '',
+        commonBarWeights: [15, 25, 35, 45, 55],
+        commonRoundingThresholds: [1, 2.5, 5, 10]
+      });
+    },
+
+    showWeightsWarning: Ember.computed('model.{rounding,plates.[]}', function () {
       let round = this.get('model.rounding');
       let smallestPlate = this.get('model.plates.0');
       return smallestPlate * 2 > round;
@@ -348,8 +356,8 @@
   _exports.default = void 0;
 
   var _default = Ember.Controller.extend({
-    showAccountTab: true,
-    showLiftsTab: false,
+    showAccountTab: false,
+    showLiftsTab: true,
     showBarLoadingTab: false,
     actions: {
       showAccountTab() {
@@ -1233,8 +1241,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "wocn4kqA",
-    "block": "{\"symbols\":[],\"statements\":[[5,\"title-bar\",[],[[\"@title\",\"@showBackButton\",\"@showSettingsButton\"],[\"Login\",false,false]]],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"login\"],[9],[0,\"\\n  \"],[7,\"form\"],[11,\"class\",\"login-form\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"label\"],[11,\"for\",\"email\"],[9],[0,\"Email\"],[10],[0,\"\\n      \"],[5,\"input\",[],[[\"@id\",\"@placeholder\",\"@value\"],[\"email\",\"you@example.com\",[23,\"email\"]]]],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"label\"],[11,\"for\",\"password\"],[9],[0,\"Password\"],[10],[0,\"\\n      \"],[5,\"input\",[],[[\"@id\",\"@placeholder\",\"@value\"],[\"password\",\"******\",[23,\"password\"]]]],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"type\",\"submit\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"log-in\"],[9],[10],[0,\" Login\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[3,\"action\",[[24,0,[]],\"login\",[25,[\"email\"]],[25,[\"password\"]]],[[\"on\"],[\"submit\"]]],[10],[0,\"\\n\"],[10]],\"hasEval\":false}",
+    "id": "FnXe0I/X",
+    "block": "{\"symbols\":[],\"statements\":[[5,\"title-bar\",[],[[\"@title\",\"@showBackButton\",\"@showSettingsButton\"],[\"Login\",false,false]]],[0,\"\\n\\n\"],[7,\"form\"],[11,\"class\",\"login\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"column\"],[9],[0,\"\\n      \"],[7,\"label\"],[11,\"for\",\"email\"],[9],[0,\"Email\"],[10],[0,\"\\n      \"],[7,\"label\"],[11,\"for\",\"password\"],[9],[0,\"Password\"],[10],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"column grow\"],[9],[0,\"\\n      \"],[5,\"input\",[],[[\"@id\",\"@placeholder\",\"@value\"],[\"email\",\"you@example.com\",[23,\"email\"]]]],[0,\"\\n      \"],[5,\"input\",[],[[\"@id\",\"@placeholder\",\"@type\",\"@value\"],[\"password\",\"******\",\"password\",[23,\"password\"]]]],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"type\",\"submit\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"log-in\"],[9],[10],[0,\" Login\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"],[3,\"action\",[[24,0,[]],\"login\",[25,[\"email\"]],[25,[\"password\"]]],[[\"on\"],[\"submit\"]]],[10]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/login.hbs"
     }
@@ -1410,7 +1418,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+aa8e437b"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+4529770c"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map

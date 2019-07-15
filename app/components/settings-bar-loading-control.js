@@ -4,12 +4,18 @@ import { computed } from '@ember/object';
 export default Component.extend({
   classNames: [ 'settings-bar-loading-control' ],
 
-  editing: false,
-  newPlateValue: '',
-  commonBarWeights: [ 15, 25, 35, 45, 55 ],
-  commonRoundingThresholds: [ 1, 2.5, 5, 10 ],
+  init(...args) {
+    this._super(...args);
 
-  showWeightsWarning: computed('model.rounding', 'model.plates.[]', function () {
+    this.setProperties({
+      editing: false,
+      newPlateValue: '',
+      commonBarWeights: [ 15, 25, 35, 45, 55 ],
+      commonRoundingThresholds: [ 1, 2.5, 5, 10 ]
+    });
+  },
+
+  showWeightsWarning: computed('model.{rounding,plates.[]}', function () {
     let round = this.get('model.rounding');
     let smallestPlate = this.get('model.plates.0');
 
