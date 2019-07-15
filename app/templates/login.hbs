@@ -4,12 +4,12 @@
   <form class="login-form" {{action "login" email password on="submit"}}>
     <div class="row">
       <label for="email">Email</label>
-      <Input @id="email" @value={{email}} />
+      <Input @id="email" @placeholder="you@example.com" @value={{email}} />
     </div>
 
     <div class="row">
       <label for="password">Password</label>
-      <Input @id="password" @value={{password}} />
+      <Input @id="password" @placeholder="******" @value={{password}} />
     </div>
 
     <div class="row">

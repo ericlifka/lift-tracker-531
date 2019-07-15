@@ -8,7 +8,7 @@
   </div>
 
   {{#if showAccountTab}}
-    <SettingsAccountControl @email={{model.email}} />
+    <SettingsAccountControl @model={{model.email}} />
   {{else if showLiftsTab}}
     <SettingsLiftsControl @model={{model.lifts}} />
   {{else if showBarLoadingTab}}

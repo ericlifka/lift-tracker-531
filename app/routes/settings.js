@@ -9,13 +9,12 @@ export default Route.extend(AuthenticatedRouteMixin, {
   wendler: service(),
 
   model() {
+    let userId = this.session.get('data.authenticated.user.uid');
+    let email = this.session.get('data.authenticated.user.email');
+
     return hash({
-      email: resolve(this.session.get('data.authenticated.user.email')),
-      lifts: this.store.query('lift', {
-        filter: {
-          userId: this.session.get('data.authenticated.user.uid')
-        }
-      }),
+      email: resolve(email),
+      lifts: this.store.query('lift', { filter: { userId } }),
       barLoading: this.wendler.getBarLoading()
     });
   }

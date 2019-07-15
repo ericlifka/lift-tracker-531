@@ -4,8 +4,8 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
   session: service(),
 
-  email: "eric.lifka@gmail.com",
-  password: "test1234",
+  email: "",
+  password: "",
 
   actions: {
     login(email, password) {

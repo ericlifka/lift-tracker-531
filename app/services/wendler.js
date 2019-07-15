@@ -1,10 +1,6 @@
 import Service from '@ember/service';
 import { inject as service } from '@ember/service';
-import { Promise, resolve } from 'rsvp';
-import { set } from '@ember/object';
-
-import { load } from '../data/access';
-import { runMigrations } from '../data/migrations';
+import { resolve } from 'rsvp';
 import { WEEK_IDS, applyWorkoutSpec } from '../utils/workout-specs';
 
 export default Service.extend({
