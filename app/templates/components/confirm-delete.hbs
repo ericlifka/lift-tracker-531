@@ -1,0 +1,7 @@
+<button class={{if showConfirm "secondary" "initial"}} {{action "click"}}>
+  {{#if showConfirm}}
+    confirm <ion-icon name="close"></ion-icon>
+  {{else}}
+    <ion-icon name="remove"></ion-icon>
+  {{/if}}
+</button>

@@ -5,9 +5,29 @@
 @primary-dark: #679cb3;
 @box-shadow: #cfcece;
 
+@accent-accept: green;
+@accent-reject: red;
+
+@capped-width: 350px;
+
 .button-box-shadow(@size: 8px) {
   box-shadow: 0 0 @size 0px @box-shadow;
+  &.active,
   &:active {
     box-shadow: none;
+  }
+}
+
+.selection-list {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    font-size: 24px;
+    text-decoration: none;
+    color: @primary-medium;
+    border-bottom: 2px solid @primary-light;
+    margin-bottom: 25px;
+    padding-left: 15px;
   }
 }

@@ -1,0 +1,21 @@
+<TitleBar @title="Login" @showBackButton={{false}} @showSettingsButton={{false}} />
+
+<div class="login">
+  <form class="login-form" {{action "login" email password on="submit"}}>
+    <div class="row">
+      <label for="email">Email</label>
+      <Input @id="email" @placeholder="you@example.com" @value={{email}} />
+    </div>
+
+    <div class="row">
+      <label for="password">Password</label>
+      <Input @id="password" @placeholder="******" @value={{password}} />
+    </div>
+
+    <div class="row">
+      <button type="submit">
+        <ion-icon name="log-in"></ion-icon> Login
+      </button>
+    </div>
+  </form>
+</div>

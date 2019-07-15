@@ -1,4 +1,4 @@
-<TitleBar @title={{concat (capitalize model.lift) " " (capitalize model.week)}} />
+<TitleBar @title={{model.title}} />
 
 {{#each model.sets as |set|}}
   <WorkoutSet @set={{set}} />

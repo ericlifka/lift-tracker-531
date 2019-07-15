@@ -10,6 +10,7 @@ Router.map(function () {
   this.route('week', { path: 'week/:week_id' });
   this.route('lift', { path: 'lift/:week_id/:lift_id' });
   this.route('settings');
+  this.route('login');
 });
 
 export default Router;

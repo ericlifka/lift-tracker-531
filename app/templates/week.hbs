@@ -3,8 +3,8 @@
 
   <div class="selection-list">
     {{#each model.lifts as |lift|}}
-      <LinkTo @route="lift" @models={{array week lift}}>
-        {{capitalize lift}}
+      <LinkTo @route="lift" @models={{array week lift.id}}>
+        {{capitalize lift.name}}
       </LinkTo>
     {{/each}}
   </div>

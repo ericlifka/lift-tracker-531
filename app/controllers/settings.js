@@ -1,16 +1,31 @@
 import Controller from '@ember/controller';
-import { inject as service } from '@ember/service';
 
 export default Controller.extend({
-  store: service(),
+  showAccountTab: true,
+  showLiftsTab: false,
+  showBarLoadingTab: false,
 
   actions: {
-    increaseLift(liftId) {
-      this.store.updateMax(liftId, 5);
+    showAccountTab() {
+      this.setProperties({
+        showAccountTab: true,
+        showLiftsTab: false,
+        showBarLoadingTab: false,
+      });
     },
-
-    decreaseLift(liftId) {
-      this.store.updateMax(liftId, -5);
+    showLiftsTab() {
+      this.setProperties({
+        showAccountTab: false,
+        showLiftsTab: true,
+        showBarLoadingTab: false,
+      });
+    },
+    showBarLoadingTab() {
+      this.setProperties({
+        showAccountTab: false,
+        showLiftsTab: false,
+        showBarLoadingTab: true,
+      });
     }
   }
 });

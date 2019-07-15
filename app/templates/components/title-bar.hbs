@@ -8,14 +8,16 @@
 
 <span>{{@title}}</span>
 
-<div class="settings-button-wrapper">
-  {{#if settingsNavsBack}}
-    <button class="nav-button" {{action "navigateBack"}}>
-      <ion-icon name="settings" />
-    </button>
-  {{else}}
-    <LinkTo class="nav-button" @route="settings" @tagName="button">
-      <ion-icon name="settings" />
-    </LinkTo>
-  {{/if}}
-</div>
+{{#if showSettingsButton}}
+  <div class="settings-button-wrapper">
+    {{#if settingsNavsBack}}
+      <button class="nav-button" {{action "navigateBack"}}>
+        <ion-icon name="settings" />
+      </button>
+    {{else}}
+      <LinkTo @tagName="button" class="nav-button" @route="settings">
+        <ion-icon name="settings" />
+      </LinkTo>
+    {{/if}}
+  </div>
+{{/if}}
