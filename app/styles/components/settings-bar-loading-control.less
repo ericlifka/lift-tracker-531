@@ -31,6 +31,10 @@
     &.hug {
       margin-top: -20px;
     }
+
+    &.wrap {
+      flex-wrap: wrap;
+    }
   }
 
   .edit,
@@ -96,6 +100,50 @@
     }
   }
 
+  .plate-editor {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    margin: 20px 50px 0 0;
+
+    .plate {
+      width: 30px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .delete-container {
+    width: 80px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 7px;
+  }
+
+  .add-plate {
+    display: flex;
+    align-items: center;
+    border: none;
+    color: @accent-accept;
+    font-size: 14px;
+
+    ion-icon {
+      font-size: 30px;
+    }
+  }
+
+  .new-plate {
+    border: 1px solid @primary-medium;
+    padding: 7px 10px;
+    font-size: 16px;
+    color: inherit;
+    width: 40px;
+    border-radius: 3px;
+    margin: 0 9px 0 8px;
+  }
+
   .weight-chooser {
     border: 1px solid @primary-medium;
     width: 40px;
@@ -112,6 +160,15 @@
     &.active {
       background-color: @primary-medium;
       color: #ffffff;
+    }
+  }
+
+  .warning {
+    color: #883000;
+
+    ion-icon {
+      color: #ffae42;
+      margin-right: 7px;
     }
   }
 }

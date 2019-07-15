@@ -32,6 +32,26 @@
     {{/each}}
   </div>
 
+  <div class="row left">
+    <span class="title">Available plates</span>
+  </div>
+  <div class="row space-around hug wrap">
+    {{#each @model.plates as |plate|}}
+      <div class="plate-editor">
+        <span class="delete-container">
+          <ConfirmDelete @deleteAction={{action "deletePlate" plate}} />
+        </span>
+        <span class="plate">{{plate}}</span>
+      </div>
+    {{/each}}
+  </div>
+  <div class="row right hug">
+    <button class="add-plate" {{action "addNewPlate"}}>
+      <ion-icon name="add-circle-outline"></ion-icon>
+    </button>
+    <Input class="new-plate" @value={{newPlateValue}} />
+  </div>
+
   <div class="row spread">
     <button class="cancel-edit" {{action "cancelEdit"}}>
       <ion-icon name="close-circle-outline"></ion-icon> cancel
@@ -56,12 +76,10 @@
   <div class="row left">
     <span class="title">Available plates</span>
   </div>
-  <div class="row right hug">
-    <span class="plates">
-      {{#each @model.plates as |plate|}}
-        <span class="plate">{{plate}}</span>
-      {{/each}}
-    </span>
+  <div class="plates row right hug">
+    {{#each @model.plates as |plate|}}
+      <span class="plate">{{plate}}</span>
+    {{/each}}
   </div>
 
   <div class="row right">
@@ -69,5 +87,12 @@
       <ion-icon name="create"></ion-icon> edit
     </button>
   </div>
+
+  {{#if showWeightsWarning}}
+    <div class="row warning">
+      <ion-icon name="warning"></ion-icon>
+      <span>rounding too small for plates</span>
+    </div>
+  {{/if}}
 
 {{/if}}
