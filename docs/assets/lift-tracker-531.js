@@ -1418,7 +1418,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+4529770c"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+db493f49"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map

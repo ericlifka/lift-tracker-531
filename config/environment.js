@@ -4,8 +4,8 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'lift-tracker-531',
     environment,
-    rootURL: '/lift-tracker-531',
-    locationType: 'auto',
+    rootURL: '/',
+    locationType: 'hash',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
