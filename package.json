@@ -16,7 +16,7 @@
     "lint:js": "eslint .",
     "start": "ember serve",
     "test": "ember test",
-    "deploy": "ember build && rm -rf docs && mkdir docs && cp -r dist/ docs/"
+    "deploy": "ember build && cp -r dist/ docs/"
   },
   "devDependencies": {
     "@ember/jquery": "^0.6.0",
