@@ -1,0 +1,69 @@
+.workout-logger {
+  padding: 20px 10px;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 10px;
+
+    &.center {
+      align-items: center;
+    }
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .pull-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  label {
+    font-size: 20px;
+    padding-right: 10px;
+  }
+
+  .estimate {
+    font-size: 20px;
+  }
+
+  input {
+    width: 50px;
+    padding: 7px 10px;
+    border: 1px solid @primary-medium;
+    border-radius: 5px;
+    font-size: 18px;
+  }
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid @primary-medium;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    color: @primary-medium;
+    font-size: 32px;
+    .button-box-shadow(10px);
+
+    &.submit {
+      background-color: @primary-medium;
+      color: #ffffff;
+      margin-right: 10px;
+    }
+    &.cancel {
+      color: @accent-reject;
+      border-color: @accent-reject;
+      margin-left: 10px;
+    }
+    &.open {
+      margin-right: 10px;
+    }
+  }
+}

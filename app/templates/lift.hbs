@@ -3,3 +3,5 @@
 {{#each model.sets as |set|}}
   <WorkoutSet @set={{set}} />
 {{/each}}
+
+<CompleteWorkout @workout={{model.sets.lastObject}} @lift={{model.lift}} @week={{model.week}} />

@@ -1,0 +1,40 @@
+{{#if showForm}}
+
+  <div class="row">
+    <div class="column top">
+      <button class="cancel" {{action "cancel"}}>
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </div>
+
+    <div class="column">
+      <div class="row center">
+        <label for="track-weight" >Weight</label>
+        <Input @id="track-weight" class="weight-input" type="number" @value={{weight}} />
+      </div>
+      <div class="row center">
+        <label for="track-reps">Reps</label>
+        <Input @id="track-reps" class="reps-input" type="number" @value={{reps}} />
+      </div>
+      <div class="row center">
+        <label>Max estimate</label>
+        <span class="estimate">{{estimate}}</span>
+      </div>
+    </div>
+
+    <div class="column bottom">
+      <button class="submit" {{action "submit"}}>
+        <ion-icon name="save"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+{{else}}
+
+  <div class="pull-right">
+    <button class="open" {{action "openForm"}}>
+      <ion-icon name="create"></ion-icon>
+    </button>
+  </div>
+
+{{/if}}

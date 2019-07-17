@@ -18,7 +18,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
       let sets = this.wendler.createWorkout(week_id, lift.get('max'), barLoading);
       let title = `${capitalize([lift.get('name')])} ${capitalize([week_id])}`;
 
-      return { title, sets };
+      return { title, sets, lift, week: week_id };
     });
   }
 });
