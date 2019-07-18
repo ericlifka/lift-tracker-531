@@ -6,7 +6,8 @@ import { oneRepEstimate } from '../utils/one-rep-estimate';
 export default Component.extend({
   classNames: [ 'workout-logger' ],
 
-  wendler: service(),
+  store: service(),
+  session: service(),
 
   showForm: false,
 
@@ -31,9 +32,15 @@ export default Component.extend({
     },
 
     submit() {
-      let { weight, reps, estimate } = this.getProperties('weight', 'reps', 'estimate');
+      let { weight, reps, estimate, lift } = this.getProperties('weight', 'reps', 'estimate', 'lift');
+      let userId = this.session.get('data.authenticated.user.uid');
 
-      this.wendler.createLogEntry(weight, reps, estimate)
+      let logEntry = this.store.createRecord('completed-workout', {
+        userId, weight, reps, lift,
+        estimatedMax: estimate,
+        date: new Date(),
+      });
+      logEntry.save()
         .then(() => {
           this.set('showForm', false);
         });

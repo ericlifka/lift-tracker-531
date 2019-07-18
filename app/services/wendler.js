@@ -66,13 +66,5 @@ export default Service.extend({
     }
 
     return sets;
-  },
-
-  createLogEntry(weight, reps, estimatedMax) {
-    let userId = this.session.get('data.authenticated.user.uid');
-    let logEntry = this.store.createRecord('completed-workout', {
-      userId, weight, reps, estimatedMax, date: new Date()
-    });
-    return logEntry.save();
   }
 });
