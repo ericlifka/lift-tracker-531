@@ -29,15 +29,17 @@
           <div class="increment-group">
             <button class="increment"
               {{action "increment" lift -5}}
-              disabled={{if (not increaseMaxes) "true"}}
-            > -5 </button>
+              disabled={{if (not increaseMaxes) "true"}} >
+              -5
+            </button>
 
             <span>{{lift.increase}}</span>
 
             <button class="increment"
               {{action "increment" lift 5}}
-              disabled={{if (not increaseMaxes) "true"}}
-            > +5 </button>
+              disabled={{if (not increaseMaxes) "true"}} >
+              +5
+            </button>
           </div>
         </div>
       {{/each}}

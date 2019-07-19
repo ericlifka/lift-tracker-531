@@ -157,25 +157,51 @@ button {
 .finish-cycle .modal label.disabled span {
   opacity: 0.5;
 }
-.finish-cycle .modal .checkbox-wrapper {
-  width: 62px;
+.finish-cycle .modal input[type=checkbox] {
+  transform: scale(2);
+  margin-right: 13px;
+}
+.finish-cycle .modal .increment-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.finish-cycle .modal .increment-group span {
+  font-size: 28px;
+  padding: 0 15px;
+  width: 35px;
   display: flex;
   justify-content: center;
 }
-.finish-cycle .modal input[type=checkbox] {
-  transform: scale(2);
-}
-.finish-cycle .modal input[type=number] {
-  width: 40px;
-  font-size: 22px;
-  padding: 7px 10px;
-  color: inherit;
+.finish-cycle .modal .increment-group .increment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f9fd;
+  color: #5bc0eb;
   border: 1px solid #5bc0eb;
-  border-radius: 5px;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  font-weight: bolder;
+  font-size: 18px;
+  box-shadow: 0 0 5px 0px #cfcece;
 }
-.finish-cycle .modal input[type=number]:disabled {
-  border: 1px solid #999;
-  color: #999;
+.finish-cycle .modal .increment-group .increment.active,
+.finish-cycle .modal .increment-group .increment:active {
+  box-shadow: none;
+}
+.finish-cycle .modal .increment-group .increment:disabled {
+  cursor: default;
+  border: 1px solid #bbb;
+  background-color: #eee;
+  color: #bbb;
+  box-shadow: 0 0 0px 0px #cfcece;
+}
+.finish-cycle .modal .increment-group .increment:disabled.active,
+.finish-cycle .modal .increment-group .increment:disabled:active {
+  box-shadow: none;
 }
 .finish-cycle .modal .cancel {
   border: none;

@@ -116,7 +116,7 @@
     },
 
     liftModels: Ember.computed('lifts.[]', function () {
-      return this.get('lifts').map(lift => ({
+      return this.get('lifts').map(lift => Ember.Object.create({
         name: lift.get('name'),
         max: lift.get('max'),
         increase: 5,
@@ -132,6 +132,10 @@
         this.set('showModal', false);
       },
 
+      increment(liftModel, value) {
+        liftModel.incrementProperty('increase', value);
+      },
+
       submit() {
         if (this.get('saving')) {
           return;
@@ -141,12 +145,12 @@
         let weeks = this.wendler.weeks();
         let models = this.get('liftModels');
         let increaseMaxes = this.get('increaseMaxes');
-        return Ember.RSVP.all(models.map(({
-          model,
-          increase
-        }) => {
+        return Ember.RSVP.all(models.map(displayModel => {
+          let model = displayModel.get('model');
+          let increase = displayModel.get('increase');
+
           if (increaseMaxes) {
-            model.incrementProperty('max', increase);
+            model.incrementProperty('max', +increase);
           }
 
           weeks.forEach(week => model.set(week, false));
@@ -1354,8 +1358,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "Guh2cc3J",
-    "block": "{\"symbols\":[\"lift\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row right\"],[9],[0,\"\\n  \"],[7,\"button\"],[11,\"class\",\"open-button\"],[9],[0,\"\\n    \"],[7,\"span\"],[9],[0,\"Next cycle\"],[10],[0,\"\\n    \"],[7,\"ion-icon\"],[11,\"name\",\"arrow-dropright-circle\"],[9],[10],[0,\"\\n  \"],[3,\"action\",[[24,0,[]],\"showModal\"]],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[4,\"if\",[[25,[\"showModal\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"page-overlay\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"modal\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row title\"],[9],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Start New Cycle\"],[10],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"close-button\"],[9],[0,\"\\n          \"],[7,\"ion-icon\"],[11,\"name\",\"close-circle\"],[9],[10],[0,\"\\n        \"],[3,\"action\",[[24,0,[]],\"closeModal\"]],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"label\"],[11,\"class\",\"row\"],[9],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Increase max values?\"],[10],[0,\"\\n        \"],[7,\"span\"],[11,\"class\",\"checkbox-wrapper\"],[9],[0,\"\\n          \"],[5,\"input\",[],[[\"@type\",\"@checked\"],[\"checkbox\",[23,\"increaseMaxes\"]]]],[0,\"\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n\"],[4,\"each\",[[25,[\"liftModels\"]]],null,{\"statements\":[[0,\"        \"],[7,\"label\"],[12,\"class\",[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],\"row disabled\",\"row\"],null]],[9],[0,\"\\n          \"],[7,\"span\"],[9],[1,[29,\"capitalize\",[[24,1,[\"name\"]]],null],false],[10],[0,\"\\n          \"],[5,\"input\",[],[[\"@type\",\"@value\",\"@disabled\"],[\"number\",[24,1,[\"increase\"]],[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],true],null]]]],[0,\"\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"      \"],[7,\"div\"],[11,\"class\",\"row footer\"],[9],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"cancel\"],[9],[0,\"cancel\"],[3,\"action\",[[24,0,[]],\"closeModal\"]],[10],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"submit\"],[9],[0,\"\\n          \"],[7,\"span\"],[9],[0,\"Start cycle\"],[10],[0,\"\\n\"],[4,\"if\",[[25,[\"saving\"]]],null,{\"statements\":[[0,\"            \"],[7,\"div\"],[11,\"class\",\"lds-dual-ring\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"            \"],[7,\"ion-icon\"],[11,\"name\",\"arrow-dropright-circle\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[3,\"action\",[[24,0,[]],\"submit\"]],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}",
+    "id": "y77shNzz",
+    "block": "{\"symbols\":[\"lift\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row right\"],[9],[0,\"\\n  \"],[7,\"button\"],[11,\"class\",\"open-button\"],[9],[0,\"\\n    \"],[7,\"span\"],[9],[0,\"Next cycle\"],[10],[0,\"\\n    \"],[7,\"ion-icon\"],[11,\"name\",\"arrow-dropright-circle\"],[9],[10],[0,\"\\n  \"],[3,\"action\",[[24,0,[]],\"showModal\"]],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[4,\"if\",[[25,[\"showModal\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"page-overlay\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"modal\"],[9],[0,\"\\n\\n      \"],[7,\"div\"],[11,\"class\",\"row title\"],[9],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Start New Cycle\"],[10],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"close-button\"],[9],[0,\"\\n          \"],[7,\"ion-icon\"],[11,\"name\",\"close-circle\"],[9],[10],[0,\"\\n        \"],[3,\"action\",[[24,0,[]],\"closeModal\"]],[10],[0,\"\\n      \"],[10],[0,\"\\n\\n      \"],[7,\"label\"],[11,\"class\",\"row\"],[9],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Increase max values?\"],[10],[0,\"\\n        \"],[5,\"input\",[],[[\"@type\",\"@checked\"],[\"checkbox\",[23,\"increaseMaxes\"]]]],[0,\"\\n      \"],[10],[0,\"\\n\\n\"],[4,\"each\",[[25,[\"liftModels\"]]],null,{\"statements\":[[0,\"        \"],[7,\"div\"],[12,\"class\",[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],\"row disabled\",\"row\"],null]],[9],[0,\"\\n          \"],[7,\"span\"],[9],[1,[29,\"capitalize\",[[24,1,[\"name\"]]],null],false],[10],[0,\"\\n\\n          \"],[7,\"div\"],[11,\"class\",\"increment-group\"],[9],[0,\"\\n            \"],[7,\"button\"],[11,\"class\",\"increment\"],[12,\"disabled\",[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],\"true\"],null]],[9],[0,\"\\n              -5\\n            \"],[3,\"action\",[[24,0,[]],\"increment\",[24,1,[]],-5]],[10],[0,\"\\n\\n            \"],[7,\"span\"],[9],[1,[24,1,[\"increase\"]],false],[10],[0,\"\\n\\n            \"],[7,\"button\"],[11,\"class\",\"increment\"],[12,\"disabled\",[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],\"true\"],null]],[9],[0,\"\\n              +5\\n            \"],[3,\"action\",[[24,0,[]],\"increment\",[24,1,[]],5]],[10],[0,\"\\n          \"],[10],[0,\"\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row footer\"],[9],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"cancel\"],[9],[0,\"cancel\"],[3,\"action\",[[24,0,[]],\"closeModal\"]],[10],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"submit\"],[9],[0,\"\\n          \"],[7,\"span\"],[9],[0,\"Start cycle\"],[10],[0,\"\\n\"],[4,\"if\",[[25,[\"saving\"]]],null,{\"statements\":[[0,\"            \"],[7,\"div\"],[11,\"class\",\"lds-dual-ring\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"            \"],[7,\"ion-icon\"],[11,\"name\",\"arrow-dropright-circle\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[3,\"action\",[[24,0,[]],\"submit\"]],[10],[0,\"\\n      \"],[10],[0,\"\\n\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/components/finish-cycle.hbs"
     }
@@ -1705,7 +1709,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+035a2dd7"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+1519335f"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map
