@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { all } from 'rsvp';
+import EmberObject from '@ember/object';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 
@@ -18,7 +19,7 @@ export default Component.extend({
   },
 
   liftModels: computed('lifts.[]', function () {
-    return this.get('lifts').map(lift => ({
+    return this.get('lifts').map(lift => EmberObject.create({
       name: lift.get('name'),
       max: lift.get('max'),
       increase: 5,
@@ -35,6 +36,10 @@ export default Component.extend({
       this.set('showModal', false);
     },
 
+    increment(liftModel, value) {
+      liftModel.incrementProperty('increase', value);
+    },
+
     submit() {
       if (this.get('saving')) {
         return;
@@ -45,9 +50,12 @@ export default Component.extend({
       let models = this.get('liftModels');
       let increaseMaxes = this.get('increaseMaxes');
 
-      return all(models.map(({ model, increase }) => {
+      return all(models.map(displayModel => {
+        let model = displayModel.get('model');
+        let increase = displayModel.get('increase');
+
         if (increaseMaxes) {
-          model.incrementProperty('max', increase);
+          model.incrementProperty('max', +increase);
         }
         weeks.forEach(week => model.set(week, false));
 
