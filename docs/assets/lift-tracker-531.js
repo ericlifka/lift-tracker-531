@@ -94,6 +94,75 @@
 
   _exports.default = _default;
 });
+;define("lift-tracker-531/components/finish-cycle", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.Component.extend({
+    classNames: ['finish-cycle'],
+    wendler: Ember.inject.service(),
+    saving: false,
+    showModal: false,
+    increaseMaxes: true,
+
+    init() {
+      this._super(...arguments);
+
+      window.component = this;
+    },
+
+    liftModels: Ember.computed('lifts.[]', function () {
+      return this.get('lifts').map(lift => ({
+        name: lift.get('name'),
+        max: lift.get('max'),
+        increase: 5,
+        model: lift
+      }));
+    }),
+    actions: {
+      showModal() {
+        this.set('showModal', true);
+      },
+
+      closeModal() {
+        this.set('showModal', false);
+      },
+
+      submit() {
+        if (this.get('saving')) {
+          return;
+        }
+
+        this.set('saving', true);
+        let weeks = this.wendler.weeks();
+        let models = this.get('liftModels');
+        let increaseMaxes = this.get('increaseMaxes');
+        return Ember.RSVP.all(models.map(({
+          model,
+          increase
+        }) => {
+          if (increaseMaxes) {
+            model.incrementProperty('max', increase);
+          }
+
+          weeks.forEach(week => model.set(week, false));
+          return model.save();
+        })).then(() => {
+          this.set('showModal', false);
+          this.set('saving', false);
+          this.clearCompleted();
+        });
+      }
+
+    }
+  });
+
+  _exports.default = _default;
+});
 ;define("lift-tracker-531/components/settings-account-control", ["exports"], function (_exports) {
   "use strict";
 
@@ -215,7 +284,7 @@
     }),
     actions: {
       addToLift(lift, amount) {
-        lift.set('max', lift.get('max') + amount);
+        lift.incrementProperty('max', amount);
         lift.save();
       },
 
@@ -308,6 +377,85 @@
 
   _exports.default = _default;
 });
+;define("lift-tracker-531/components/workout-logger", ["exports", "lift-tracker-531/utils/one-rep-estimate"], function (_exports, _oneRepEstimate) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.Component.extend({
+    classNames: ['workout-logger'],
+    store: Ember.inject.service(),
+    session: Ember.inject.service(),
+    showForm: false,
+    saving: false,
+    showSuccess: false,
+
+    didReceiveAttrs() {
+      this._super(...arguments);
+
+      this.setInitialValues();
+    },
+
+    estimate: Ember.computed('weight', 'reps', function () {
+      return (0, _oneRepEstimate.oneRepEstimate)(this.get('weight'), this.get('reps'));
+    }),
+    actions: {
+      openForm() {
+        this.set('showForm', true);
+      },
+
+      cancel() {
+        this.set('showForm', false);
+        this.setInitialValues();
+      },
+
+      submit() {
+        this.set('saving', true);
+        this.set('showForm', false);
+        let userId = this.session.get('data.authenticated.user.uid');
+        let weight = this.get('weight');
+        let reps = this.get('reps');
+        let estimate = this.get('estimate');
+        let lift = this.get('lift');
+        let week = this.get('week');
+        let logEntry = this.store.createRecord('completed-workout', {
+          userId,
+          weight,
+          reps,
+          lift,
+          estimatedMax: estimate,
+          date: new Date()
+        });
+        return logEntry.save().then(() => {
+          lift.set(week, true);
+          return lift.save();
+        }).then(() => {
+          this.set('showSuccess', true);
+          this.set('saving', false);
+          Ember.run.later(this, function () {
+            history.back();
+          }, 1000);
+        });
+      }
+
+    },
+
+    setInitialValues() {
+      let weight = this.get('workout.movements.lastObject.weight');
+      let reps = this.get('workout.movements.lastObject.reps');
+      this.setProperties({
+        weight,
+        reps
+      });
+    }
+
+  });
+
+  _exports.default = _default;
+});
 ;define("lift-tracker-531/components/workout-set", ["exports"], function (_exports) {
   "use strict";
 
@@ -317,7 +465,29 @@
   _exports.default = void 0;
 
   var _default = Ember.Component.extend({
-    classNames: ['workout-set']
+    classNames: ['workout-set'],
+    classNameBindings: ['isCompleted:complete']
+  });
+
+  _exports.default = _default;
+});
+;define("lift-tracker-531/controllers/index", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.Controller.extend({
+    actions: {
+      clearCompleted() {
+        this.get('model.weeks').forEach(week => {
+          Ember.set(week, 'isCompleted', false);
+        });
+      }
+
+    }
   });
 
   _exports.default = _default;
@@ -476,6 +646,23 @@
   }
 
   var _default = Ember.Helper.helper(join);
+
+  _exports.default = _default;
+});
+;define("lift-tracker-531/helpers/not", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.not = not;
+  _exports.default = void 0;
+
+  function not([bool]) {
+    return !bool;
+  }
+
+  var _default = Ember.Helper.helper(not);
 
   _exports.default = _default;
 });
@@ -735,6 +922,30 @@
 
   _exports.default = _default;
 });
+;define("lift-tracker-531/models/completed-workout", ["exports", "ember-data"], function (_exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const {
+    Model,
+    attr,
+    belongsTo
+  } = _emberData.default;
+
+  var _default = Model.extend({
+    userId: attr('string'),
+    date: attr('date'),
+    weight: attr('number'),
+    reps: attr('number'),
+    estimatedMax: attr('number'),
+    lift: belongsTo('lift')
+  });
+
+  _exports.default = _default;
+});
 ;define("lift-tracker-531/models/lift", ["exports", "ember-data"], function (_exports, _emberData) {
   "use strict";
 
@@ -744,13 +955,19 @@
   _exports.default = void 0;
   const {
     Model,
-    attr
+    attr,
+    hasMany
   } = _emberData.default;
 
   var _default = Model.extend({
     name: attr('string'),
     max: attr('number'),
-    userId: attr('string')
+    userId: attr('string'),
+    completedWorkouts: hasMany('completed-workout'),
+    '5-5-5': attr('boolean'),
+    '3-3-3': attr('boolean'),
+    '5-3-1': attr('boolean'),
+    'deload': attr('boolean')
   });
 
   _exports.default = _default;
@@ -809,11 +1026,28 @@
   });
   _exports.default = void 0;
 
+  const allComplete = (week, lifts) => lifts.reduce((accumulator, lift) => accumulator && lift.get(week), true);
+
   var _default = Ember.Route.extend(_authenticatedRouteMixin.default, {
     wendler: Ember.inject.service(),
 
     model() {
-      return this.wendler.getWeeks();
+      return Ember.RSVP.hash({
+        weekIds: this.wendler.getWeeks(),
+        lifts: this.wendler.getLifts()
+      }).then(({
+        weekIds,
+        lifts
+      }) => {
+        let weeks = weekIds.map(week => ({
+          name: week,
+          isCompleted: allComplete(week, lifts)
+        }));
+        return {
+          lifts,
+          weeks
+        };
+      });
     }
 
   });
@@ -847,7 +1081,9 @@
         let title = "".concat((0, _capitalize.capitalize)([lift.get('name')]), " ").concat((0, _capitalize.capitalize)([week_id]));
         return {
           title,
-          sets
+          sets,
+          lift,
+          week: week_id
         };
       });
     }
@@ -908,18 +1144,12 @@
   _exports.default = void 0;
 
   var _default = Ember.Route.extend(_authenticatedRouteMixin.default, {
-    store: Ember.inject.service(),
-    session: Ember.inject.service(),
+    wendler: Ember.inject.service(),
 
     model({
       week_id
     }) {
-      let userId = this.session.get('data.authenticated.user.uid');
-      return this.store.query('lift', {
-        filter: {
-          userId
-        }
-      }).then(lifts => ({
+      return this.wendler.getLifts().then(lifts => ({
         lifts,
         week: week_id
       }));
@@ -1027,12 +1257,21 @@
       });
     },
 
-    getWeeks() {
-      return Ember.RSVP.resolve(_workoutSpecs.WEEK_IDS);
+    weeks() {
+      return _workoutSpecs.WEEK_IDS;
     },
 
-    getLiftsModel() {
-      return Ember.RSVP.resolve(this.get('data.lifts').map(lift => lift.name));
+    getWeeks() {
+      // for routes and things that want a promise
+      return Ember.RSVP.resolve(this.weeks());
+    },
+
+    getLifts() {
+      return this.store.query('lift', {
+        filter: {
+          userId: this.session.get('data.authenticated.user.uid')
+        }
+      });
     },
 
     createWorkout(weekId, max, barLoading) {
@@ -1101,6 +1340,24 @@
     "block": "{\"symbols\":[],\"statements\":[[7,\"button\"],[12,\"class\",[29,\"if\",[[25,[\"showConfirm\"]],\"secondary\",\"initial\"],null]],[9],[0,\"\\n\"],[4,\"if\",[[25,[\"showConfirm\"]]],null,{\"statements\":[[0,\"    confirm \"],[7,\"ion-icon\"],[11,\"name\",\"close\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[7,\"ion-icon\"],[11,\"name\",\"remove\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]}],[3,\"action\",[[24,0,[]],\"click\"]],[10]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/components/confirm-delete.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
+;define("lift-tracker-531/templates/components/finish-cycle", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "Guh2cc3J",
+    "block": "{\"symbols\":[\"lift\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row right\"],[9],[0,\"\\n  \"],[7,\"button\"],[11,\"class\",\"open-button\"],[9],[0,\"\\n    \"],[7,\"span\"],[9],[0,\"Next cycle\"],[10],[0,\"\\n    \"],[7,\"ion-icon\"],[11,\"name\",\"arrow-dropright-circle\"],[9],[10],[0,\"\\n  \"],[3,\"action\",[[24,0,[]],\"showModal\"]],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[4,\"if\",[[25,[\"showModal\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"page-overlay\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"modal\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row title\"],[9],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Start New Cycle\"],[10],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"close-button\"],[9],[0,\"\\n          \"],[7,\"ion-icon\"],[11,\"name\",\"close-circle\"],[9],[10],[0,\"\\n        \"],[3,\"action\",[[24,0,[]],\"closeModal\"]],[10],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"label\"],[11,\"class\",\"row\"],[9],[0,\"\\n        \"],[7,\"span\"],[9],[0,\"Increase max values?\"],[10],[0,\"\\n        \"],[7,\"span\"],[11,\"class\",\"checkbox-wrapper\"],[9],[0,\"\\n          \"],[5,\"input\",[],[[\"@type\",\"@checked\"],[\"checkbox\",[23,\"increaseMaxes\"]]]],[0,\"\\n        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n\"],[4,\"each\",[[25,[\"liftModels\"]]],null,{\"statements\":[[0,\"        \"],[7,\"label\"],[12,\"class\",[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],\"row disabled\",\"row\"],null]],[9],[0,\"\\n          \"],[7,\"span\"],[9],[1,[29,\"capitalize\",[[24,1,[\"name\"]]],null],false],[10],[0,\"\\n          \"],[5,\"input\",[],[[\"@type\",\"@value\",\"@disabled\"],[\"number\",[24,1,[\"increase\"]],[29,\"if\",[[29,\"not\",[[25,[\"increaseMaxes\"]]],null],true],null]]]],[0,\"\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"      \"],[7,\"div\"],[11,\"class\",\"row footer\"],[9],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"cancel\"],[9],[0,\"cancel\"],[3,\"action\",[[24,0,[]],\"closeModal\"]],[10],[0,\"\\n        \"],[7,\"button\"],[11,\"class\",\"submit\"],[9],[0,\"\\n          \"],[7,\"span\"],[9],[0,\"Start cycle\"],[10],[0,\"\\n\"],[4,\"if\",[[25,[\"saving\"]]],null,{\"statements\":[[0,\"            \"],[7,\"div\"],[11,\"class\",\"lds-dual-ring\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"            \"],[7,\"ion-icon\"],[11,\"name\",\"arrow-dropright-circle\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]}],[0,\"        \"],[3,\"action\",[[24,0,[]],\"submit\"]],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},null]],\"hasEval\":false}",
+    "meta": {
+      "moduleName": "lift-tracker-531/templates/components/finish-cycle.hbs"
     }
   });
 
@@ -1178,6 +1435,24 @@
 
   _exports.default = _default;
 });
+;define("lift-tracker-531/templates/components/workout-logger", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "DZPY6R/5",
+    "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[25,[\"showForm\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"column top\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"class\",\"cancel\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"close\"],[9],[10],[0,\"\\n      \"],[3,\"action\",[[24,0,[]],\"cancel\"]],[10],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"column\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[11,\"for\",\"track-weight\"],[9],[0,\"Weight\"],[10],[0,\"\\n        \"],[5,\"input\",[[13,\"class\",\"weight-input\"],[13,\"type\",\"number\"]],[[\"@id\",\"@value\"],[\"track-weight\",[23,\"weight\"]]]],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[11,\"for\",\"track-reps\"],[9],[0,\"Reps\"],[10],[0,\"\\n        \"],[5,\"input\",[[13,\"class\",\"reps-input\"],[13,\"type\",\"number\"]],[[\"@id\",\"@value\"],[\"track-reps\",[23,\"reps\"]]]],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"Max estimate\"],[10],[0,\"\\n        \"],[7,\"span\"],[11,\"class\",\"estimate\"],[9],[1,[23,\"estimate\"],false],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"column bottom\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"class\",\"submit\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"save\"],[9],[10],[0,\"\\n      \"],[3,\"action\",[[24,0,[]],\"submit\"]],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[25,[\"saving\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"lds-dual-ring\"],[9],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[25,[\"showSuccess\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"success-indicator\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"checkmark\"],[9],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"open\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"create\"],[9],[10],[0,\"\\n    \"],[3,\"action\",[[24,0,[]],\"openForm\"]],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}]],\"hasEval\":false}",
+    "meta": {
+      "moduleName": "lift-tracker-531/templates/components/workout-logger.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
 ;define("lift-tracker-531/templates/components/workout-set", ["exports"], function (_exports) {
   "use strict";
 
@@ -1187,8 +1462,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "43EuOQfg",
-    "block": "{\"symbols\":[\"movement\",\"@set\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row title\"],[9],[1,[24,2,[\"name\"]],false],[10],[0,\"\\n\\n\"],[4,\"each\",[[24,2,[\"movements\"]]],null,{\"statements\":[[0,\"  \"],[7,\"div\"],[11,\"class\",\"row lift\"],[9],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"weight\"],[9],[1,[24,1,[\"weight\"]],false],[10],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"label\"],[9],[0,\"lbs\"],[10],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"count\"],[9],[0,\"x\"],[1,[24,1,[\"reps\"]],false],[1,[29,\"if\",[[24,1,[\"plusSet\"]],\"+\"],null],false],[10],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"plates\"],[9],[0,\"[ \"],[1,[29,\"join\",[\", \",[24,1,[\"plates\"]]],null],false],[0,\" ]\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "dzVtNo3P",
+    "block": "{\"symbols\":[\"movement\",\"@workoutSet\",\"@isCompleted\"],\"statements\":[[7,\"div\"],[11,\"class\",\"row title\"],[9],[0,\"\\n  \"],[7,\"span\"],[11,\"class\",\"name\"],[9],[1,[24,2,[\"name\"]],false],[10],[0,\"\\n  \"],[7,\"span\"],[11,\"class\",\"icon\"],[9],[0,\"\\n\"],[4,\"if\",[[24,3,[]]],null,{\"statements\":[[0,\"      \"],[7,\"ion-icon\"],[11,\"name\",\"checkmark-circle\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n\"],[4,\"each\",[[24,2,[\"movements\"]]],null,{\"statements\":[[0,\"  \"],[7,\"div\"],[11,\"class\",\"row lift\"],[9],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"weight\"],[9],[1,[24,1,[\"weight\"]],false],[10],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"label\"],[9],[0,\"lbs\"],[10],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"count\"],[9],[0,\"x\"],[1,[24,1,[\"reps\"]],false],[1,[29,\"if\",[[24,1,[\"plusSet\"]],\"+\"],null],false],[10],[0,\"\\n    \"],[7,\"span\"],[11,\"class\",\"plates\"],[9],[0,\"[ \"],[1,[29,\"join\",[\", \",[24,1,[\"plates\"]]],null],false],[0,\" ]\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/components/workout-set.hbs"
     }
@@ -1205,8 +1480,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "x+0HYUz1",
-    "block": "{\"symbols\":[\"week\"],\"statements\":[[5,\"title-bar\",[],[[\"@title\",\"@showBackButton\"],[\"Lift Tracker\",false]]],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"selection-list\"],[9],[0,\"\\n\"],[4,\"each\",[[25,[\"model\"]]],null,{\"statements\":[[0,\"    \"],[5,\"link-to\",[],[[\"@route\",\"@model\"],[\"week\",[24,1,[]]]],{\"statements\":[[0,\"\\n      \"],[1,[29,\"capitalize\",[[24,1,[]]],null],false],[0,\"\\n    \"]],\"parameters\":[]}],[0,\"\\n\"]],\"parameters\":[1]},null],[10]],\"hasEval\":false}",
+    "id": "HUycUcv+",
+    "block": "{\"symbols\":[\"week\"],\"statements\":[[5,\"title-bar\",[],[[\"@title\",\"@showBackButton\"],[\"Lift Tracker\",false]]],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"selection-list\"],[9],[0,\"\\n\"],[4,\"each\",[[25,[\"model\",\"weeks\"]]],null,{\"statements\":[[0,\"    \"],[5,\"link-to\",[[13,\"class\",[29,\"if\",[[24,1,[\"isCompleted\"]],\"complete\"],null]]],[[\"@route\",\"@model\"],[\"week\",[24,1,[\"name\"]]]],{\"statements\":[[0,\"\\n      \"],[1,[29,\"capitalize\",[[24,1,[\"name\"]]],null],false],[0,\"\\n\"],[4,\"if\",[[24,1,[\"isCompleted\"]]],null,{\"statements\":[[0,\"        \"],[7,\"ion-icon\"],[11,\"name\",\"checkmark-circle\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"]],\"parameters\":[]}],[0,\"\\n\"]],\"parameters\":[1]},null],[10],[0,\"\\n\\n\"],[5,\"finish-cycle\",[],[[\"@lifts\",\"@clearCompleted\"],[[25,[\"model\",\"lifts\"]],[29,\"action\",[[24,0,[]],\"clearCompleted\"],null]]]]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/index.hbs"
     }
@@ -1223,8 +1498,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "tPBcQrYo",
-    "block": "{\"symbols\":[\"set\"],\"statements\":[[5,\"title-bar\",[],[[\"@title\"],[[25,[\"model\",\"title\"]]]]],[0,\"\\n\\n\"],[4,\"each\",[[25,[\"model\",\"sets\"]]],null,{\"statements\":[[0,\"  \"],[5,\"workout-set\",[],[[\"@set\"],[[24,1,[]]]]],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "8L6quWPF",
+    "block": "{\"symbols\":[\"set\"],\"statements\":[[5,\"title-bar\",[],[[\"@title\"],[[25,[\"model\",\"title\"]]]]],[0,\"\\n\\n\"],[4,\"each\",[[25,[\"model\",\"sets\"]]],null,{\"statements\":[[0,\"  \"],[5,\"workout-set\",[],[[\"@workoutSet\",\"@isCompleted\"],[[24,1,[]],[29,\"get\",[[25,[\"model\",\"lift\"]],[25,[\"model\",\"week\"]]],null]]]],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"\\n\"],[5,\"workout-logger\",[],[[\"@workout\",\"@lift\",\"@week\"],[[25,[\"model\",\"sets\",\"lastObject\"]],[25,[\"model\",\"lift\"]],[25,[\"model\",\"week\"]]]]],[0,\"\\n\"]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/lift.hbs"
     }
@@ -1277,14 +1552,26 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "WKXdzeBX",
-    "block": "{\"symbols\":[\"week\",\"lift\"],\"statements\":[[4,\"let\",[[25,[\"model\",\"week\"]]],null,{\"statements\":[[0,\"  \"],[5,\"title-bar\",[],[[\"@title\"],[[29,\"capitalize\",[[24,1,[]]],null]]]],[0,\"\\n\\n  \"],[7,\"div\"],[11,\"class\",\"selection-list\"],[9],[0,\"\\n\"],[4,\"each\",[[25,[\"model\",\"lifts\"]]],null,{\"statements\":[[0,\"      \"],[5,\"link-to\",[],[[\"@route\",\"@models\"],[\"lift\",[29,\"array\",[[24,1,[]],[24,2,[\"id\"]]],null]]],{\"statements\":[[0,\"\\n        \"],[1,[29,\"capitalize\",[[24,2,[\"name\"]]],null],false],[0,\"\\n      \"]],\"parameters\":[]}],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"  \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "lBNMl57t",
+    "block": "{\"symbols\":[\"week\",\"lift\",\"isCompleted\"],\"statements\":[[4,\"let\",[[25,[\"model\",\"week\"]]],null,{\"statements\":[[0,\"  \"],[5,\"title-bar\",[],[[\"@title\"],[[29,\"capitalize\",[[24,1,[]]],null]]]],[0,\"\\n\\n  \"],[7,\"div\"],[11,\"class\",\"selection-list\"],[9],[0,\"\\n\"],[4,\"each\",[[25,[\"model\",\"lifts\"]]],null,{\"statements\":[[4,\"let\",[[29,\"get\",[[24,2,[]],[24,1,[]]],null]],null,{\"statements\":[[0,\"        \"],[5,\"link-to\",[[13,\"class\",[29,\"if\",[[24,3,[]],\"complete\"],null]]],[[\"@route\",\"@models\"],[\"lift\",[29,\"array\",[[24,1,[]],[24,2,[\"id\"]]],null]]],{\"statements\":[[0,\"\\n          \"],[1,[29,\"capitalize\",[[24,2,[\"name\"]]],null],false],[0,\"\\n\"],[4,\"if\",[[24,3,[]]],null,{\"statements\":[[0,\"            \"],[7,\"ion-icon\"],[11,\"name\",\"checkmark-circle\"],[9],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"]],\"parameters\":[]}],[0,\"\\n\"]],\"parameters\":[3]},null]],\"parameters\":[2]},null],[0,\"  \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/week.hbs"
     }
   });
 
   _exports.default = _default;
+});
+;define("lift-tracker-531/utils/one-rep-estimate", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.oneRepEstimate = void 0;
+
+  const oneRepEstimate = (weight, reps) => Math.round(weight * (1 + Math.min(reps, 12) / 30));
+
+  _exports.oneRepEstimate = oneRepEstimate;
 });
 ;define("lift-tracker-531/utils/plate-math", ["exports"], function (_exports) {
   "use strict";
@@ -1418,7 +1705,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+52a9f3ec"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+035a2dd7"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map

@@ -63,6 +63,10 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'components/confirm-delete.js should pass ESLint\n\n');
   });
+  QUnit.test('components/finish-cycle.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/finish-cycle.js should pass ESLint\n\n');
+  });
   QUnit.test('components/settings-account-control.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/settings-account-control.js should pass ESLint\n\n');
@@ -79,9 +83,17 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'components/title-bar.js should pass ESLint\n\n');
   });
+  QUnit.test('components/workout-logger.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'components/workout-logger.js should pass ESLint\n\n');
+  });
   QUnit.test('components/workout-set.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/workout-set.js should pass ESLint\n\n');
+  });
+  QUnit.test('controllers/index.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'controllers/index.js should pass ESLint\n\n');
   });
   QUnit.test('controllers/login.js', function (assert) {
     assert.expect(1);
@@ -103,9 +115,17 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'helpers/join.js should pass ESLint\n\n');
   });
+  QUnit.test('helpers/not.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'helpers/not.js should pass ESLint\n\n');
+  });
   QUnit.test('models/bar-loading.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'models/bar-loading.js should pass ESLint\n\n');
+  });
+  QUnit.test('models/completed-workout.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'models/completed-workout.js should pass ESLint\n\n');
   });
   QUnit.test('models/lift.js', function (assert) {
     assert.expect(1);
@@ -151,6 +171,10 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'session-stores/application.js should pass ESLint\n\n');
   });
+  QUnit.test('utils/one-rep-estimate.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'utils/one-rep-estimate.js should pass ESLint\n\n');
+  });
   QUnit.test('utils/plate-math.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'utils/plate-math.js should pass ESLint\n\n');
@@ -172,6 +196,10 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/confirm-delete.hbs should pass TemplateLint.\n\n');
   });
+  QUnit.test('lift-tracker-531/templates/components/finish-cycle.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'lift-tracker-531/templates/components/finish-cycle.hbs should pass TemplateLint.\n\n');
+  });
   QUnit.test('lift-tracker-531/templates/components/settings-account-control.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/settings-account-control.hbs should pass TemplateLint.\n\n');
@@ -187,6 +215,10 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
   QUnit.test('lift-tracker-531/templates/components/title-bar.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/title-bar.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('lift-tracker-531/templates/components/workout-logger.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'lift-tracker-531/templates/components/workout-logger.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('lift-tracker-531/templates/components/workout-set.hbs', function (assert) {
     assert.expect(1);

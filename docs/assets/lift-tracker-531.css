@@ -8,7 +8,40 @@
   color: #5bc0eb;
   border-bottom: 2px solid #b4e2f5;
   margin-bottom: 25px;
-  padding-left: 15px;
+  padding: 0 5px 0 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.selection-list a.complete {
+  opacity: 0.5;
+}
+.selection-list a ion-icon {
+  font-size: 28px;
+}
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #5bc0eb;
+  border-color: #5bc0eb transparent #5bc0eb transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 html,
 body {
@@ -44,6 +77,142 @@ button {
 }
 .confirm-delete button ion-icon {
   font-size: 20px;
+}
+.finish-cycle .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.finish-cycle .row.right {
+  justify-content: flex-end;
+}
+.finish-cycle .open-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24px;
+  color: #5bc0eb;
+  border: 3px solid #5bc0eb;
+  height: 50px;
+  border-radius: 25px;
+  padding-left: 15px;
+  margin-right: 20px;
+  box-shadow: 0 0 10px 0px #cfcece;
+}
+.finish-cycle .open-button.active,
+.finish-cycle .open-button:active {
+  box-shadow: none;
+}
+.finish-cycle .open-button ion-icon {
+  font-size: 43px;
+  margin-left: 10px;
+  margin-right: -7px;
+}
+.finish-cycle .page-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.finish-cycle .modal {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  font-size: 24px;
+  border: 3px solid #5bc0eb;
+  border-radius: 22px;
+  overflow: hidden;
+  width: 350px;
+  padding-bottom: 20px;
+}
+.finish-cycle .modal .row {
+  padding: 10px 20px 0 20px;
+  justify-content: space-between;
+}
+.finish-cycle .modal .title {
+  font-size: 28px;
+  background-color: #5bc0eb;
+  color: #ffffff;
+  padding: 0 0 0 12px;
+  margin-bottom: 10px;
+}
+.finish-cycle .modal .footer {
+  margin-top: 30px;
+}
+.finish-cycle .modal .close-button {
+  border: none;
+  font-size: 44px;
+  color: #ffffff;
+  display: flex;
+  margin: 0 -8px 3px 0;
+}
+.finish-cycle .modal .close-button:hover {
+  color: #fdbdbd;
+}
+.finish-cycle .modal label.disabled span {
+  opacity: 0.5;
+}
+.finish-cycle .modal .checkbox-wrapper {
+  width: 62px;
+  display: flex;
+  justify-content: center;
+}
+.finish-cycle .modal input[type=checkbox] {
+  transform: scale(2);
+}
+.finish-cycle .modal input[type=number] {
+  width: 40px;
+  font-size: 22px;
+  padding: 7px 10px;
+  color: inherit;
+  border: 1px solid #5bc0eb;
+  border-radius: 5px;
+}
+.finish-cycle .modal input[type=number]:disabled {
+  border: 1px solid #999;
+  color: #999;
+}
+.finish-cycle .modal .cancel {
+  border: none;
+  border-bottom: 2px solid red;
+  color: red;
+  font-size: 20px;
+  margin-left: 8px;
+}
+.finish-cycle .modal .submit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 20px;
+  color: green;
+  border: 3px solid green;
+  height: 40px;
+  border-radius: 20px;
+  padding-left: 12px;
+  box-shadow: 0 0 10px 0px #cfcece;
+}
+.finish-cycle .modal .submit.active,
+.finish-cycle .modal .submit:active {
+  box-shadow: none;
+}
+.finish-cycle .modal .submit ion-icon {
+  font-size: 33px;
+  margin-left: 7px;
+  margin-right: -7px;
+}
+.finish-cycle .modal .lds-dual-ring {
+  width: 25px;
+  height: 32px;
+  margin-left: 8px;
+}
+.finish-cycle .modal .lds-dual-ring::after {
+  width: 20px;
+  height: 20px;
 }
 .settings-account-control {
   display: flex;
@@ -410,6 +579,83 @@ button {
 .back-button-wrapper .nav-button ion-icon {
   margin-right: -15px;
 }
+.workout-logger {
+  padding: 20px 10px;
+}
+.workout-logger .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+.workout-logger .row.center {
+  align-items: center;
+}
+.workout-logger .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.workout-logger .pull-right {
+  display: flex;
+  justify-content: flex-end;
+}
+.workout-logger label {
+  font-size: 20px;
+  padding-right: 10px;
+}
+.workout-logger .estimate {
+  font-size: 20px;
+}
+.workout-logger input {
+  width: 50px;
+  padding: 7px 10px;
+  border: 1px solid #5bc0eb;
+  border-radius: 5px;
+  font-size: 18px;
+}
+.workout-logger button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #5bc0eb;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  color: #5bc0eb;
+  font-size: 32px;
+  box-shadow: 0 0 10px 0px #cfcece;
+}
+.workout-logger button.active,
+.workout-logger button:active {
+  box-shadow: none;
+}
+.workout-logger button.submit {
+  background-color: #5bc0eb;
+  color: #ffffff;
+  margin-right: 10px;
+}
+.workout-logger button.cancel {
+  color: red;
+  border-color: red;
+  margin-left: 10px;
+}
+.workout-logger button.open {
+  margin-right: 10px;
+}
+.workout-logger .success-indicator {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #4fca4f;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  font-size: 32px;
+  color: #4fca4f;
+}
 .workout-set {
   display: flex;
   flex-direction: column;
@@ -418,6 +664,9 @@ button {
   margin: 0 10px 10px 10px;
   padding-bottom: 6px;
   box-shadow: 0px 4px 8px -2px #cfcece;
+}
+.workout-set.complete {
+  opacity: 0.5;
 }
 .workout-set .row {
   display: flex;
@@ -432,11 +681,20 @@ button {
   border-bottom: 1px solid #b4e2f5;
 }
 .workout-set .row.title {
+  justify-content: space-between;
   font-size: 18px;
   font-weight: bolder;
   color: #f0f9fd;
   background-color: #5bc0eb;
-  padding: 5px 8px;
+  padding-left: 8px;
+}
+.workout-set .row.title .icon {
+  width: 36px;
+  height: 40px;
+}
+.workout-set .row.title ion-icon {
+  font-size: 36px;
+  color: white;
 }
 .workout-set .row .weight {
   min-width: 35px;
