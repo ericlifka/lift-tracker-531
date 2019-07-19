@@ -7,6 +7,10 @@
   padding-bottom: 6px;
   box-shadow: 0px 4px 8px -2px @box-shadow;
 
+  &.complete {
+    opacity: 0.5;
+  }
+
   .row {
     display: flex;
     flex-direction: row;
@@ -21,11 +25,22 @@
     }
 
     &.title {
+      justify-content: space-between;
       font-size: 18px;
       font-weight: bolder;
       color: @primary-lightest;
       background-color: @primary-medium;
-      padding: 5px 8px;
+      padding-left: 8px;
+
+      .icon {
+        width: 36px;
+        height: 40px;
+      }
+
+      ion-icon {
+        font-size: 36px;
+        color: white;
+      }
     }
 
     .weight {

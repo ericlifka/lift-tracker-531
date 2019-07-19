@@ -23,7 +23,7 @@ export default Component.extend({
 
   actions: {
     addToLift(lift, amount) {
-      lift.set('max', lift.get('max') + amount);
+      lift.incrementProperty('max', amount);
       lift.save();
     },
 

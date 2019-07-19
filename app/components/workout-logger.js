@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { later } from '@ember/runloop';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { oneRepEstimate } from '../utils/one-rep-estimate';
@@ -10,6 +11,8 @@ export default Component.extend({
   session: service(),
 
   showForm: false,
+  saving: false,
+  showSuccess: false,
 
   didReceiveAttrs() {
     this._super(...arguments);
@@ -32,17 +35,34 @@ export default Component.extend({
     },
 
     submit() {
-      let { weight, reps, estimate, lift } = this.getProperties('weight', 'reps', 'estimate', 'lift');
+      this.set('saving', true);
+      this.set('showForm', false);
+
       let userId = this.session.get('data.authenticated.user.uid');
+      let weight = this.get('weight');
+      let reps = this.get('reps');
+      let estimate = this.get('estimate');
+      let lift = this.get('lift');
+      let week = this.get('week');
 
       let logEntry = this.store.createRecord('completed-workout', {
         userId, weight, reps, lift,
         estimatedMax: estimate,
         date: new Date(),
       });
-      logEntry.save()
+
+      return logEntry.save()
         .then(() => {
-          this.set('showForm', false);
+          lift.set(week, true);
+          return lift.save();
+        })
+        .then(() => {
+          this.set('showSuccess', true);
+          this.set('saving', false);
+
+          later(this, function () {
+            history.back();
+          }, 1000);
         });
     }
   },

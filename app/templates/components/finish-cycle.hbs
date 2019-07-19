@@ -1,0 +1,46 @@
+<div class="row right">
+  <button class="open-button" {{action "showModal"}}>
+    <span>Next cycle</span>
+    <ion-icon name="arrow-dropright-circle"></ion-icon>
+  </button>
+</div>
+
+{{#if showModal}}
+
+  <div class="page-overlay">
+    <div class="modal">
+      <div class="row title">
+        <span>Start New Cycle</span>
+        <button class="close-button" {{action "closeModal"}}>
+          <ion-icon name="close-circle"></ion-icon>
+        </button>
+      </div>
+      <label class="row">
+        <span>Increase max values?</span>
+        <span class="checkbox-wrapper">
+          <Input @type="checkbox" @checked={{increaseMaxes}} />
+        </span>
+      </label>
+      {{#each liftModels as |lift|}}
+        <label class={{if (not increaseMaxes) "row disabled" "row"}}>
+          <span>{{capitalize lift.name}}</span>
+          <Input @type="number"
+                 @value={{lift.increase}}
+                 @disabled={{if (not increaseMaxes) true}} />
+        </label>
+      {{/each}}
+      <div class="row footer">
+        <button class="cancel" {{action "closeModal"}}>cancel</button>
+        <button class="submit" {{action "submit"}}>
+          <span>Start cycle</span>
+          {{#if saving}}
+            <div class="lds-dual-ring"></div>
+          {{else}}
+            <ion-icon name="arrow-dropright-circle"></ion-icon>
+          {{/if}}
+        </button>
+      </div>
+    </div>
+  </div>
+
+{{/if}}

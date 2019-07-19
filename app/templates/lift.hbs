@@ -1,7 +1,12 @@
 <TitleBar @title={{model.title}} />
 
 {{#each model.sets as |set|}}
-  <WorkoutSet @set={{set}} />
+  <WorkoutSet
+    @workoutSet={{set}}
+    @isCompleted={{get model.lift model.week}} />
 {{/each}}
 
-<CompleteWorkout @workout={{model.sets.lastObject}} @lift={{model.lift}} @week={{model.week}} />
+<WorkoutLogger
+  @workout={{model.sets.lastObject}}
+  @lift={{model.lift}}
+  @week={{model.week}} />

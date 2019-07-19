@@ -1,6 +1,13 @@
-<div class="row title">{{@set.name}}</div>
+<div class="row title">
+  <span class="name">{{@workoutSet.name}}</span>
+  <span class="icon">
+    {{#if @isCompleted}}
+      <ion-icon name="checkmark-circle"></ion-icon>
+    {{/if}}
+  </span>
+</div>
 
-{{#each @set.movements as |movement|}}
+{{#each @workoutSet.movements as |movement|}}
   <div class="row lift">
     <span class="weight">{{movement.weight}}</span>
     <span class="label">lbs</span>

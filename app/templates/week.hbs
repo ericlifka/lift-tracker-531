@@ -3,9 +3,14 @@
 
   <div class="selection-list">
     {{#each model.lifts as |lift|}}
-      <LinkTo @route="lift" @models={{array week lift.id}}>
-        {{capitalize lift.name}}
-      </LinkTo>
+      {{#let (get lift week) as |isCompleted|}}
+        <LinkTo @route="lift" @models={{array week lift.id}} class={{if isCompleted "complete"}}>
+          {{capitalize lift.name}}
+          {{#if isCompleted}}
+            <ion-icon name="checkmark-circle"></ion-icon>
+          {{/if}}
+        </LinkTo>
+      {{/let}}
     {{/each}}
   </div>
 {{/let}}

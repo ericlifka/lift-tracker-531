@@ -29,6 +29,20 @@
     </div>
   </div>
 
+{{else if saving}}
+
+  <div class="pull-right">
+    <div class="lds-dual-ring"></div>
+  </div>
+
+{{else if showSuccess}}
+
+  <div class="pull-right">
+    <div class="success-indicator">
+      <ion-icon name="checkmark"></ion-icon>
+    </div>
+  </div>
+
 {{else}}
 
   <div class="pull-right">

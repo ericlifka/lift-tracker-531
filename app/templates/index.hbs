@@ -1,9 +1,14 @@
 <TitleBar @title="Lift Tracker" @showBackButton={{false}} />
 
 <div class="selection-list">
-  {{#each model as |week|}}
-    <LinkTo @route="week" @model={{week}}>
-      {{capitalize week}}
+  {{#each model.weeks as |week|}}
+    <LinkTo @route="week" @model={{week.name}} class={{if week.isCompleted "complete"}}>
+      {{capitalize week.name}}
+      {{#if week.isCompleted}}
+        <ion-icon name="checkmark-circle"></ion-icon>
+      {{/if}}
     </LinkTo>
   {{/each}}
 </div>
+
+<FinishCycle @lifts={{model.lifts}} @clearCompleted={{action "clearCompleted"}} />

@@ -40,12 +40,20 @@ export default Service.extend({
       });
   },
 
-  getWeeks() {
-    return resolve(WEEK_IDS);
+  weeks() {
+    return WEEK_IDS;
   },
 
-  getLiftsModel() {
-    return resolve(this.get('data.lifts').map(lift => lift.name));
+  getWeeks() { // for routes and things that want a promise
+    return resolve(this.weeks());
+  },
+
+  getLifts() {
+    return this.store.query('lift', {
+      filter: {
+        userId: this.session.get('data.authenticated.user.uid')
+      }
+    });
   },
 
   createWorkout(weekId, max, barLoading) {
