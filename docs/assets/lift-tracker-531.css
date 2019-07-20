@@ -739,6 +739,38 @@ button {
   margin-left: 20px;
   color: #679cb3;
 }
+.chart-view .row {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+.chart-view .link-button {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border-radius: 25px;
+  border: 3px solid #5bc0eb;
+  color: #5bc0eb;
+  font-size: 24px;
+  padding: 0 3px 0 15px;
+  box-shadow: 0 0 10px 0px #cfcece;
+}
+.chart-view .link-button.active,
+.chart-view .link-button:active {
+  box-shadow: none;
+}
+.chart-view .link-button .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  background-color: #5bc0eb;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin-left: 15px;
+}
 .import-view {
   display: flex;
   flex-direction: column;

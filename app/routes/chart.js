@@ -5,7 +5,7 @@ import { inject as service } from '@ember/service';
 const chartOptions = {
   chart: {
     type: 'line',
-    height: "700px"
+    height: "600px"
   },
   title: {
     text: '1 Rep Max Estimates'

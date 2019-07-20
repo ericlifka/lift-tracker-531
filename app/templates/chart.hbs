@@ -1,5 +1,14 @@
 <TitleBar @title="History" />
 
-<HighCharts
-  @chartOptions={{model.chartOptions}}
-  @content={{model.series}} />
+<div class="chart-view">
+  <HighCharts
+    @chartOptions={{model.chartOptions}}
+    @content={{model.series}} />
+
+  <div class="row">
+    <button class="link-button">
+      <span>Records</span>
+      <span class="icon"><ion-icon name="calendar"></ion-icon></span>
+    </button>
+  </div>
+</div>

@@ -1119,7 +1119,7 @@
   const chartOptions = {
     chart: {
       type: 'line',
-      height: "700px"
+      height: "600px"
     },
     title: {
       text: '1 Rep Max Estimates'
@@ -1555,8 +1555,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "Efa4X/7x",
-    "block": "{\"symbols\":[],\"statements\":[[5,\"title-bar\",[],[[\"@title\"],[\"History\"]]],[0,\"\\n\\n\"],[5,\"high-charts\",[],[[\"@chartOptions\",\"@content\"],[[25,[\"model\",\"chartOptions\"]],[25,[\"model\",\"series\"]]]]]],\"hasEval\":false}",
+    "id": "8MV6bju+",
+    "block": "{\"symbols\":[],\"statements\":[[5,\"title-bar\",[],[[\"@title\"],[\"History\"]]],[0,\"\\n\\n\"],[7,\"div\"],[11,\"class\",\"chart-view\"],[9],[0,\"\\n  \"],[5,\"high-charts\",[],[[\"@chartOptions\",\"@content\"],[[25,[\"model\",\"chartOptions\"]],[25,[\"model\",\"series\"]]]]],[0,\"\\n\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"link-button\"],[9],[0,\"\\n      \"],[7,\"span\"],[9],[0,\"Records\"],[10],[0,\"\\n      \"],[7,\"span\"],[11,\"class\",\"icon\"],[9],[7,\"ion-icon\"],[11,\"name\",\"calendar\"],[9],[10],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"],[10]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/chart.hbs"
     }
@@ -1960,7 +1960,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+669c876b"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+e746a4a8"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map
