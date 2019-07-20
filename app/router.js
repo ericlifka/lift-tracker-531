@@ -11,6 +11,7 @@ Router.map(function () {
   this.route('lift', { path: 'lift/:week_id/:lift_id' });
   this.route('settings');
   this.route('login');
+  this.route('chart');
 });
 
 export default Router;

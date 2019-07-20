@@ -1,14 +1,21 @@
 <TitleBar @title="Lift Tracker" @showBackButton={{false}} />
 
-<div class="selection-list">
-  {{#each model.weeks as |week|}}
-    <LinkTo @route="week" @model={{week.name}} class={{if week.isCompleted "complete"}}>
-      {{capitalize week.name}}
-      {{#if week.isCompleted}}
-        <ion-icon name="checkmark-circle"></ion-icon>
-      {{/if}}
-    </LinkTo>
-  {{/each}}
-</div>
+<div class="index-view">
+  <div class="selection-list">
+    {{#each model.weeks as |week|}}
+      <LinkTo @route="week" @model={{week.name}} class={{if week.isCompleted "complete"}}>
+        {{capitalize week.name}}
+        {{#if week.isCompleted}}
+          <ion-icon name="checkmark-circle"></ion-icon>
+        {{/if}}
+      </LinkTo>
+    {{/each}}
+  </div>
 
-<FinishCycle @lifts={{model.lifts}} @clearCompleted={{action "clearCompleted"}} />
+  <div class="row">
+    <LinkTo @route="chart" @tagName="button" class="chart-button">
+      <ion-icon name="trending-up"></ion-icon>
+    </LinkTo>
+    <FinishCycle @lifts={{model.lifts}} @clearCompleted={{action "clearCompleted"}} />
+  </div>
+</div>
