@@ -485,54 +485,6 @@
 
   _exports.default = _default;
 });
-;define("lift-tracker-531/controllers/chart", ["exports"], function (_exports) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  var _default = Ember.Controller.extend({
-    chartOptions: {
-      chart: {
-        type: 'spline'
-      },
-      title: {
-        text: '1 Rep Max Estimates'
-      },
-      xAxis: {
-        type: 'datetime',
-        dateTimeLabelFormats: {
-          month: '%e. %b',
-          year: '%b'
-        },
-        title: {
-          text: ''
-        }
-      },
-      yAxis: {
-        title: {
-          text: ''
-        },
-        min: 0
-      },
-      tooltip: {
-        headerFormat: '<b>{series.name}</b><br>{point.x:%e. %b}<br>',
-        pointFormat: 'lifted:{point.weight}lbs x{point.reps}<br>1 rep: {point.y}lbs'
-      },
-      plotOptions: {
-        spline: {
-          marker: {
-            enabled: true
-          }
-        }
-      }
-    }
-  });
-
-  _exports.default = _default;
-});
 ;define("lift-tracker-531/controllers/import", ["exports"], function (_exports) {
   "use strict";
 
@@ -1164,6 +1116,65 @@
     value: true
   });
   _exports.default = void 0;
+  const chartOptions = {
+    chart: {
+      type: 'line',
+      height: "700px"
+    },
+    title: {
+      text: '1 Rep Max Estimates'
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: {
+        month: '%e. %b',
+        year: '%b'
+      },
+      title: {
+        text: ''
+      }
+    },
+    yAxis: {
+      title: {
+        text: ''
+      }
+    },
+    tooltip: {
+      headerFormat: '<b>{series.name}</b><br>{point.x:%e. %b}<br>',
+      pointFormat: 'lifted:{point.weight}lbs x{point.reps}<br>1 rep: {point.y}lbs'
+    },
+    plotOptions: {
+      line: {
+        animation: {
+          duration: 0
+        },
+        dataLabels: {
+          enabled: true,
+          align: "center",
+
+          formatter() {
+            return this.y;
+          },
+
+          padding: 3,
+          style: {
+            fontSize: "10px",
+            fontWeight: "normal",
+            color: "contrast",
+            textOutline: "2px contrast"
+          },
+          verticalAlign: "bottom",
+          x: 0,
+          y: 0
+        },
+        lineWidth: 3,
+        marker: {
+          enabled: true,
+          symbol: "circle"
+        }
+      }
+    }
+  };
 
   var _default = Ember.Route.extend({
     wendler: Ember.inject.service(),
@@ -1173,7 +1184,7 @@
         let recordsPromises = liftsRecords.map(lift => lift.get('completedWorkouts'));
         return Ember.RSVP.all(recordsPromises).then(workoutLiftRecords => {
           let lifts = liftsRecords.toArray();
-          let model = [];
+          let series = [];
 
           for (let i = 0; i < lifts.length; i++) {
             let lift = lifts[i];
@@ -1189,13 +1200,16 @@
               weight,
               reps
             })).sort((l, r) => l.x - r.x);
-            model.push({
+            series.push({
               data,
               name: lift.get('name')
             });
           }
 
-          return model;
+          return {
+            chartOptions,
+            series
+          };
         });
       });
     }
@@ -1541,8 +1555,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "9xdcp1US",
-    "block": "{\"symbols\":[],\"statements\":[[5,\"title-bar\",[],[[\"@title\"],[\"History\"]]],[0,\"\\n\\n\"],[5,\"high-charts\",[],[[\"@chartOptions\",\"@content\"],[[23,\"chartOptions\"],[23,\"model\"]]]]],\"hasEval\":false}",
+    "id": "Efa4X/7x",
+    "block": "{\"symbols\":[],\"statements\":[[5,\"title-bar\",[],[[\"@title\"],[\"History\"]]],[0,\"\\n\\n\"],[5,\"high-charts\",[],[[\"@chartOptions\",\"@content\"],[[25,[\"model\",\"chartOptions\"]],[25,[\"model\",\"series\"]]]]]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/chart.hbs"
     }
@@ -1946,7 +1960,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+a2f4de06"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+669c876b"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map

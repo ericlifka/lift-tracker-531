@@ -4,7 +4,8 @@ import { inject as service } from '@ember/service';
 
 const chartOptions = {
   chart: {
-    type: 'spline'
+    type: 'line',
+    height: "700px"
   },
   title: {
     text: '1 Rep Max Estimates'
@@ -22,17 +23,38 @@ const chartOptions = {
   yAxis: {
     title: {
       text: ''
-    },
-    min: 0
+    }
   },
   tooltip: {
     headerFormat: '<b>{series.name}</b><br>{point.x:%e. %b}<br>',
     pointFormat: 'lifted:{point.weight}lbs x{point.reps}<br>1 rep: {point.y}lbs'
   },
   plotOptions: {
-    spline: {
+    line: {
+      animation: {
+        duration: 0
+      },
+      dataLabels: {
+        enabled: true,
+        align: "center",
+        formatter() {
+          return this.y;
+        },
+        padding: 3,
+        style: {
+          fontSize: "10px",
+          fontWeight: "normal",
+          color: "contrast",
+          textOutline: "2px contrast"
+        },
+        verticalAlign: "bottom",
+        x: 0,
+        y: 0
+      },
+      lineWidth: 3,
       marker: {
-        enabled: true
+        enabled: true,
+        symbol: "circle"
       }
     }
   }
