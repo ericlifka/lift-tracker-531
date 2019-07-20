@@ -91,6 +91,14 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'components/workout-set.js should pass ESLint\n\n');
   });
+  QUnit.test('controllers/chart.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/chart.js should pass ESLint\n\n4:3 - Only string, number, symbol, boolean, null, undefined, and function are allowed as default properties (ember/avoid-leaking-state-in-ember-objects)');
+  });
+  QUnit.test('controllers/import.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'controllers/import.js should pass ESLint\n\n40:11 - Unexpected console statement. (no-console)\n70:14 - \'_a\' is defined but never used. (no-unused-vars)\n70:27 - \'_c\' is defined but never used. (no-unused-vars)\n70:30 - \'_d\' is defined but never used. (no-unused-vars)\n70:33 - \'_e\' is defined but never used. (no-unused-vars)\n70:36 - \'_f\' is defined but never used. (no-unused-vars)\n70:39 - \'_g\' is defined but never used. (no-unused-vars)\n70:72 - \'_h\' is defined but never used. (no-unused-vars)\n70:75 - \'_i\' is defined but never used. (no-unused-vars)');
+  });
   QUnit.test('controllers/index.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'controllers/index.js should pass ESLint\n\n');
@@ -143,6 +151,14 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'routes/application.js should pass ESLint\n\n');
   });
+  QUnit.test('routes/chart.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/chart.js should pass ESLint\n\n');
+  });
+  QUnit.test('routes/import.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/import.js should pass ESLint\n\n');
+  });
   QUnit.test('routes/index.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/index.js should pass ESLint\n\n');
@@ -192,6 +208,10 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/application.hbs should pass TemplateLint.\n\n');
   });
+  QUnit.test('lift-tracker-531/templates/chart.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'lift-tracker-531/templates/chart.hbs should pass TemplateLint.\n\n');
+  });
   QUnit.test('lift-tracker-531/templates/components/confirm-delete.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/confirm-delete.hbs should pass TemplateLint.\n\n');
@@ -223,6 +243,10 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
   QUnit.test('lift-tracker-531/templates/components/workout-set.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/workout-set.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('lift-tracker-531/templates/import.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'lift-tracker-531/templates/import.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('lift-tracker-531/templates/index.hbs', function (assert) {
     assert.expect(1);

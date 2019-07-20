@@ -96,7 +96,6 @@ button {
   height: 50px;
   border-radius: 25px;
   padding-left: 15px;
-  margin-right: 20px;
   box-shadow: 0 0 10px 0px #cfcece;
 }
 .finish-cycle .open-button.active,
@@ -739,6 +738,40 @@ button {
   align-self: flex-end;
   margin-left: 20px;
   color: #679cb3;
+}
+.import-view {
+  display: flex;
+  flex-direction: column;
+}
+.import-view textarea {
+  height: 300px;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid #5bc0eb;
+  border-radius: 5px;
+}
+.index-view .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;
+}
+.index-view .chart-button {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  border: 3px solid #5bc0eb;
+  color: #5bc0eb;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px 0px #cfcece;
+}
+.index-view .chart-button.active,
+.index-view .chart-button:active {
+  box-shadow: none;
 }
 .login {
   display: flex;
