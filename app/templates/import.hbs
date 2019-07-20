@@ -1,0 +1,12 @@
+<div class="import-view">
+  <Textarea @value={{importCSV}} />
+
+  <div class="row">
+    <label>Delete Old Data <Input @type="checkbox" @checked={{deleteOld}} /></label>
+    <button class="process" {{action "processText"}}>import</button>
+  </div>
+
+  {{#if processing}}
+    <div class="lds-dual-ring"></div>
+  {{/if}}
+</div>
