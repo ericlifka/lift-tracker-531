@@ -747,7 +747,7 @@ button {
 .chart-view .link-button {
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 40px;
   border-radius: 25px;
   border: 3px solid #5bc0eb;
   color: #5bc0eb;
@@ -763,11 +763,11 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 28px;
+  font-size: 20px;
   background-color: #5bc0eb;
   color: #fff;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 100%;
   margin-left: 15px;
 }

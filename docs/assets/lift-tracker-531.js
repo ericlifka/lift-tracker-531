@@ -1122,7 +1122,7 @@
       height: "600px"
     },
     title: {
-      text: '1 Rep Max Estimates'
+      text: ''
     },
     xAxis: {
       type: 'datetime',
@@ -1960,7 +1960,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+e746a4a8"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+0f76df90"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map

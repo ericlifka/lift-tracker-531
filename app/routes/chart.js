@@ -8,7 +8,7 @@ const chartOptions = {
     height: "600px"
   },
   title: {
-    text: '1 Rep Max Estimates'
+    text: ''
   },
   xAxis: {
     type: 'datetime',
