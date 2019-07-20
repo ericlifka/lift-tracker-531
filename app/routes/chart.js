@@ -2,6 +2,42 @@ import { all } from 'rsvp';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 
+const chartOptions = {
+  chart: {
+    type: 'spline'
+  },
+  title: {
+    text: '1 Rep Max Estimates'
+  },
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: {
+      month: '%e. %b',
+      year: '%b'
+    },
+    title: {
+      text: ''
+    }
+  },
+  yAxis: {
+    title: {
+      text: ''
+    },
+    min: 0
+  },
+  tooltip: {
+    headerFormat: '<b>{series.name}</b><br>{point.x:%e. %b}<br>',
+    pointFormat: 'lifted:{point.weight}lbs x{point.reps}<br>1 rep: {point.y}lbs'
+  },
+  plotOptions: {
+    spline: {
+      marker: {
+        enabled: true
+      }
+    }
+  }
+};
+
 export default Route.extend({
   wendler: service(),
 
@@ -11,7 +47,7 @@ export default Route.extend({
 
       return all(recordsPromises).then(workoutLiftRecords => {
         let lifts = liftsRecords.toArray();
-        let model = [ ];
+        let series = [ ];
 
         for (let i = 0; i < lifts.length; i++) {
           let lift = lifts[ i ];
@@ -26,10 +62,13 @@ export default Route.extend({
             }))
             .sort((l, r) => l.x - r.x)
 
-          model.push({ data, name: lift.get('name') });
+          series.push({ data, name: lift.get('name') });
         }
 
-        return model;
+        return {
+          chartOptions,
+          series
+        };
       });
     });
   }
