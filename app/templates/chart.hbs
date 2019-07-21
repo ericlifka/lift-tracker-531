@@ -6,9 +6,9 @@
     @content={{model.series}} />
 
   <div class="row">
-    <button class="link-button">
+    <LinkTo @route="records" @tagName="button" @class="link-button">
       <span>Records</span>
       <span class="icon"><ion-icon name="calendar"></ion-icon></span>
-    </button>
+    </LinkTo>
   </div>
 </div>

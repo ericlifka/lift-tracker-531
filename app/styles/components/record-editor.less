@@ -1,0 +1,88 @@
+.record-editor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+
+  &.deleted {
+    background-color: #ccc;
+    opacity: 0.25;
+    font-style: italic;
+  }
+
+  .item {
+    &.label,
+    &.date {
+      width: 53px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    &.lift {
+      width: 90px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    &.estimate {
+      width: 30px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .edit-item {
+    width: 90px;
+
+    .lift,
+    .reps {
+      border: 1px solid @primary-medium;
+      font-size: inherit;
+      padding: 3px 0 3px 2px;
+      border-radius: 3px;
+    }
+    .lift {
+      width: 47px;
+      margin-right: 2px;
+    }
+    .reps {
+      width: 33px;
+    }
+  }
+
+  .spacer {
+    width: 74px;
+  }
+
+  .delete-container {
+    width: 74px;
+    display: flex;
+    justify-content: flex-end;
+
+    .confirm-delete button.secondary {
+      padding: 0 1px 0 4px;
+    }
+  }
+
+  .save-button,
+  .edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+    font-size: 28px;
+  }
+  .edit-button {
+    color: @primary-medium;
+
+    &:disabled {
+      color: #ccc;
+      cursor: default;
+    }
+  }
+  .save-button {
+    color: @accent-accept;
+  }
+}

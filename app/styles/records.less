@@ -1,0 +1,47 @@
+.records-view {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    background-color: #f6f6f6;
+    margin-top: -20px;
+    padding-top: 10px;
+
+    .spacer-left {
+      width: 74px;
+    }
+    .spacer-right {
+      width: 28px;
+    }
+    .item {
+      &.label {
+        width: 40px;
+        display: flex;
+        justify-content: flex-start;
+      }
+      &.date {
+        width: 53px;
+        display: flex;
+        justify-content: flex-start;
+      }
+      &.lift {
+        width: 103px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      &.estimate {
+        width: 30px;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

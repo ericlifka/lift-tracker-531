@@ -13,6 +13,7 @@ Router.map(function () {
   this.route('login');
   this.route('chart');
   this.route('import');
+  this.route('records');
 });
 
 export default Router;

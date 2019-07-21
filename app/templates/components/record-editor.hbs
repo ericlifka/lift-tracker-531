@@ -1,0 +1,30 @@
+
+  {{#if editing}}
+    <div class="delete-container">
+      <ConfirmDelete @deleteAction={{action "delete"}} />
+    </div>
+
+    <span class="item date">{{displayDate}}</span>
+    <span class="item label">{{capitalize @record.lift.name}}</span>
+    <span class="edit-item">
+      <Input @class="lift" @type="number" @value={{@record.weight}}
+      /><Input @class="reps" @type="number" @value={{@record.reps}} />
+    </span>
+    <span class="item estimate">{{@record.estimatedMax}}</span>
+
+
+    <button class="save-button" {{action "save"}}>
+      <ion-icon name="save"></ion-icon>
+    </button>
+  {{else}}
+    <span class="spacer"></span>
+
+    <span class="item date">{{displayDate}}</span>
+    <span class="item label">{{capitalize @record.lift.name}}</span>
+    <span class="item lift">{{@record.weight}} x{{@record.reps}}</span>
+    <span class="item estimate">{{@record.estimatedMax}}</span>
+
+    <button class="edit-button" {{action "edit"}} disabled={{if deleted true}}>
+      <ion-icon name="create"></ion-icon>
+    </button>
+  {{/if}}

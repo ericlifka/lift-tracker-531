@@ -67,6 +67,10 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'components/finish-cycle.js should pass ESLint\n\n');
   });
+  QUnit.test('components/record-editor.js', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'components/record-editor.js should pass ESLint\n\n31:7 - Unexpected console statement. (no-console)\n37:9 - Unexpected console statement. (no-console)');
+  });
   QUnit.test('components/settings-account-control.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'components/settings-account-control.js should pass ESLint\n\n');
@@ -167,6 +171,10 @@ define("lift-tracker-531/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'routes/login.js should pass ESLint\n\n');
   });
+  QUnit.test('routes/records.js', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'routes/records.js should pass ESLint\n\n');
+  });
   QUnit.test('routes/settings.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'routes/settings.js should pass ESLint\n\n');
@@ -216,6 +224,10 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/finish-cycle.hbs should pass TemplateLint.\n\n');
   });
+  QUnit.test('lift-tracker-531/templates/components/record-editor.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'lift-tracker-531/templates/components/record-editor.hbs should pass TemplateLint.\n\n');
+  });
   QUnit.test('lift-tracker-531/templates/components/settings-account-control.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/components/settings-account-control.hbs should pass TemplateLint.\n\n');
@@ -255,6 +267,10 @@ define("lift-tracker-531/tests/lint/templates.template.lint-test", [], function 
   QUnit.test('lift-tracker-531/templates/login.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'lift-tracker-531/templates/login.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('lift-tracker-531/templates/records.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'lift-tracker-531/templates/records.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('lift-tracker-531/templates/settings.hbs', function (assert) {
     assert.expect(1);

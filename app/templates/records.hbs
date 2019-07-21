@@ -1,0 +1,18 @@
+<TitleBar @title="History" />
+
+<div class="records-view">
+  <div class="header">
+    <span class="spacer-left"></span>
+
+    <span class="item date">Date</span>
+    <span class="item label">Lift</span>
+    <span class="item lift">weight x reps</span>
+    <span class="item estimate">Max</span>
+
+    <span class="spacer-right"></span>
+  </div>
+
+  {{#each model as |record|}}
+    <RecordEditor @record={{record}} />
+  {{/each}}
+</div>

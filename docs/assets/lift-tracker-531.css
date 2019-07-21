@@ -239,6 +239,83 @@ button {
   width: 20px;
   height: 20px;
 }
+.record-editor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.record-editor.deleted {
+  background-color: #ccc;
+  opacity: 0.25;
+  font-style: italic;
+}
+.record-editor .item.label,
+.record-editor .item.date {
+  width: 53px;
+  display: flex;
+  justify-content: flex-start;
+}
+.record-editor .item.lift {
+  width: 90px;
+  display: flex;
+  justify-content: flex-end;
+}
+.record-editor .item.estimate {
+  width: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+.record-editor .edit-item {
+  width: 90px;
+}
+.record-editor .edit-item .lift,
+.record-editor .edit-item .reps {
+  border: 1px solid #5bc0eb;
+  font-size: inherit;
+  padding: 3px 0 3px 2px;
+  border-radius: 3px;
+}
+.record-editor .edit-item .lift {
+  width: 47px;
+  margin-right: 2px;
+}
+.record-editor .edit-item .reps {
+  width: 33px;
+}
+.record-editor .spacer {
+  width: 74px;
+}
+.record-editor .delete-container {
+  width: 74px;
+  display: flex;
+  justify-content: flex-end;
+}
+.record-editor .delete-container .confirm-delete button.secondary {
+  padding: 0 1px 0 4px;
+}
+.record-editor .save-button,
+.record-editor .edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 0;
+  font-size: 28px;
+}
+.record-editor .edit-button {
+  color: #5bc0eb;
+}
+.record-editor .edit-button:disabled {
+  color: #ccc;
+  cursor: default;
+}
+.record-editor .save-button {
+  color: green;
+}
 .settings-account-control {
   display: flex;
   flex-direction: column;
@@ -853,6 +930,49 @@ button {
 .login button ion-icon {
   font-size: 32px;
   margin-right: 7px;
+}
+.records-view {
+  display: flex;
+  flex-direction: column;
+}
+.records-view .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  background-color: #f6f6f6;
+  margin-top: -20px;
+  padding-top: 10px;
+}
+.records-view .header .spacer-left {
+  width: 74px;
+}
+.records-view .header .spacer-right {
+  width: 28px;
+}
+.records-view .header .item.label {
+  width: 40px;
+  display: flex;
+  justify-content: flex-start;
+}
+.records-view .header .item.date {
+  width: 53px;
+  display: flex;
+  justify-content: flex-start;
+}
+.records-view .header .item.lift {
+  width: 103px;
+  display: flex;
+  justify-content: flex-end;
+}
+.records-view .header .item.estimate {
+  width: 30px;
+  display: flex;
+  justify-content: flex-end;
 }
 .settings-view {
   display: flex;
