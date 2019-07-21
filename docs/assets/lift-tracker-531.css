@@ -78,14 +78,6 @@ button {
 .confirm-delete button ion-icon {
   font-size: 20px;
 }
-.finish-cycle .row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.finish-cycle .row.right {
-  justify-content: flex-end;
-}
 .finish-cycle .open-button {
   display: flex;
   flex-direction: row;
@@ -132,6 +124,7 @@ button {
 .finish-cycle .modal .row {
   padding: 10px 20px 0 20px;
   justify-content: space-between;
+  margin: 0;
 }
 .finish-cycle .modal .title {
   font-size: 28px;
