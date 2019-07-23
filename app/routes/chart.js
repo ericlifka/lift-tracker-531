@@ -76,6 +76,7 @@ export default Route.extend({
           let data = workoutLiftRecords[ i ];
 
           data = data
+            .filter(record => !record.get('isDeload'))
             .map(record => record.getProperties('date', 'estimatedMax', 'weight', 'reps'))
             .map(({ date, estimatedMax, weight, reps }) => ({
               x: new Date(date),

@@ -695,6 +695,14 @@ button {
   display: flex;
   justify-content: flex-end;
 }
+.workout-logger .disabled {
+  opacity: 0.5;
+}
+.workout-logger .disabled,
+.workout-logger .disabled * {
+  border-color: #666;
+  font-style: italic;
+}
 .workout-logger label {
   font-size: 20px;
   padding-right: 10px;

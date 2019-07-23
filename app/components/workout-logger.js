@@ -44,10 +44,11 @@ export default Component.extend({
       let estimate = this.get('estimate');
       let lift = this.get('lift');
       let week = this.get('week');
+      let isDeload = !!this.get('isDeload');
 
       let logEntry = this.store.createRecord('completed-workout', {
-        userId, weight, reps, lift,
-        estimatedMax: estimate,
+        userId, weight, reps, lift, isDeload,
+        estimatedMax: isDeload ? 0 : estimate,
         date: new Date(),
       });
 
@@ -70,7 +71,8 @@ export default Component.extend({
   setInitialValues() {
     let weight = this.get('workout.movements.lastObject.weight');
     let reps = this.get('workout.movements.lastObject.reps');
+    let isDeload = this.get('workout.isDeload');
 
-    this.setProperties({ weight, reps });
+    this.setProperties({ weight, reps, isDeload });
   }
 });

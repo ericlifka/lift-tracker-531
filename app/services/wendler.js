@@ -71,6 +71,8 @@ export default Service.extend({
         name: "Warmup",
         movements: applyWorkoutSpec('warmup', max, barWeight, userPlates, roundingFactor)
       });
+    } else {
+      sets[ 0 ].isDeload = true;
     }
 
     return sets;

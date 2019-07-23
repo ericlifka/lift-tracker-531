@@ -7,5 +7,6 @@ export default Model.extend({
   weight: attr('number'),
   reps: attr('number'),
   estimatedMax: attr('number'),
+  isDeload: attr('boolean'),
   lift: belongsTo('lift')
 });

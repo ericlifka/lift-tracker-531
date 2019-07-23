@@ -7,19 +7,25 @@
       </button>
     </div>
 
-    <div class="column">
+    <div class={{if isDeload "column disabled" "column"}}>
       <div class="row center">
-        <label for="track-weight" >Weight</label>
-        <Input @id="track-weight" class="weight-input" type="number" @value={{weight}} />
+        <label for="track-weight">Weight</label>
+        <Input class="weight-input" type="number"
+          @id="track-weight" @value={{weight}}
+          @disabled={{if isDeload "true"}} />
       </div>
       <div class="row center">
         <label for="track-reps">Reps</label>
-        <Input @id="track-reps" class="reps-input" type="number" @value={{reps}} />
+        <Input  class="reps-input" type="number"
+          @id="track-reps" @value={{reps}}
+          @disabled={{if isDeload "true"}} />
       </div>
-      <div class="row center">
-        <label>Max estimate</label>
-        <span class="estimate">{{estimate}}</span>
-      </div>
+      {{#if (not isDeload)}}
+        <div class="row center">
+          <label>Max estimate</label>
+          <span class="estimate">{{estimate}}</span>
+        </div>
+      {{/if}}
     </div>
 
     <div class="column bottom">

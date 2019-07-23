@@ -488,12 +488,14 @@
         let estimate = this.get('estimate');
         let lift = this.get('lift');
         let week = this.get('week');
+        let isDeload = !!this.get('isDeload');
         let logEntry = this.store.createRecord('completed-workout', {
           userId,
           weight,
           reps,
           lift,
-          estimatedMax: estimate,
+          isDeload,
+          estimatedMax: isDeload ? 0 : estimate,
           date: new Date()
         });
         return logEntry.save().then(() => {
@@ -513,9 +515,11 @@
     setInitialValues() {
       let weight = this.get('workout.movements.lastObject.weight');
       let reps = this.get('workout.movements.lastObject.reps');
+      let isDeload = this.get('workout.isDeload');
       this.setProperties({
         weight,
-        reps
+        reps,
+        isDeload
       });
     }
 
@@ -1083,6 +1087,7 @@
     weight: attr('number'),
     reps: attr('number'),
     estimatedMax: attr('number'),
+    isDeload: attr('boolean'),
     lift: belongsTo('lift')
   });
 
@@ -1243,7 +1248,7 @@
           for (let i = 0; i < lifts.length; i++) {
             let lift = lifts[i];
             let data = workoutLiftRecords[i];
-            data = data.map(record => record.getProperties('date', 'estimatedMax', 'weight', 'reps')).map(({
+            data = data.filter(record => !record.get('isDeload')).map(record => record.getProperties('date', 'estimatedMax', 'weight', 'reps')).map(({
               date,
               estimatedMax,
               weight,
@@ -1586,6 +1591,8 @@
           name: "Warmup",
           movements: (0, _workoutSpecs.applyWorkoutSpec)('warmup', max, barWeight, userPlates, roundingFactor)
         });
+      } else {
+        sets[0].isDeload = true;
       }
 
       return sets;
@@ -1778,8 +1785,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "DZPY6R/5",
-    "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[25,[\"showForm\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"column top\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"class\",\"cancel\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"close\"],[9],[10],[0,\"\\n      \"],[3,\"action\",[[24,0,[]],\"cancel\"]],[10],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"column\"],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[11,\"for\",\"track-weight\"],[9],[0,\"Weight\"],[10],[0,\"\\n        \"],[5,\"input\",[[13,\"class\",\"weight-input\"],[13,\"type\",\"number\"]],[[\"@id\",\"@value\"],[\"track-weight\",[23,\"weight\"]]]],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[11,\"for\",\"track-reps\"],[9],[0,\"Reps\"],[10],[0,\"\\n        \"],[5,\"input\",[[13,\"class\",\"reps-input\"],[13,\"type\",\"number\"]],[[\"@id\",\"@value\"],[\"track-reps\",[23,\"reps\"]]]],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[9],[0,\"Max estimate\"],[10],[0,\"\\n        \"],[7,\"span\"],[11,\"class\",\"estimate\"],[9],[1,[23,\"estimate\"],false],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"column bottom\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"class\",\"submit\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"save\"],[9],[10],[0,\"\\n      \"],[3,\"action\",[[24,0,[]],\"submit\"]],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[25,[\"saving\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"lds-dual-ring\"],[9],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[25,[\"showSuccess\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"success-indicator\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"checkmark\"],[9],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"open\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"create\"],[9],[10],[0,\"\\n    \"],[3,\"action\",[[24,0,[]],\"openForm\"]],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}]],\"hasEval\":false}",
+    "id": "qmcfib6V",
+    "block": "{\"symbols\":[],\"statements\":[[4,\"if\",[[25,[\"showForm\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"row\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"column top\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"class\",\"cancel\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"close\"],[9],[10],[0,\"\\n      \"],[3,\"action\",[[24,0,[]],\"cancel\"]],[10],[0,\"\\n    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[12,\"class\",[29,\"if\",[[25,[\"isDeload\"]],\"column disabled\",\"column\"],null]],[9],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[11,\"for\",\"track-weight\"],[9],[0,\"Weight\"],[10],[0,\"\\n        \"],[5,\"input\",[[13,\"class\",\"weight-input\"],[13,\"type\",\"number\"]],[[\"@id\",\"@value\",\"@disabled\"],[\"track-weight\",[23,\"weight\"],[29,\"if\",[[25,[\"isDeload\"]],\"true\"],null]]]],[0,\"\\n      \"],[10],[0,\"\\n      \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n        \"],[7,\"label\"],[11,\"for\",\"track-reps\"],[9],[0,\"Reps\"],[10],[0,\"\\n        \"],[5,\"input\",[[13,\"class\",\"reps-input\"],[13,\"type\",\"number\"]],[[\"@id\",\"@value\",\"@disabled\"],[\"track-reps\",[23,\"reps\"],[29,\"if\",[[25,[\"isDeload\"]],\"true\"],null]]]],[0,\"\\n      \"],[10],[0,\"\\n\"],[4,\"if\",[[29,\"not\",[[25,[\"isDeload\"]]],null]],null,{\"statements\":[[0,\"        \"],[7,\"div\"],[11,\"class\",\"row center\"],[9],[0,\"\\n          \"],[7,\"label\"],[9],[0,\"Max estimate\"],[10],[0,\"\\n          \"],[7,\"span\"],[11,\"class\",\"estimate\"],[9],[1,[23,\"estimate\"],false],[10],[0,\"\\n        \"],[10],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"    \"],[10],[0,\"\\n\\n    \"],[7,\"div\"],[11,\"class\",\"column bottom\"],[9],[0,\"\\n      \"],[7,\"button\"],[11,\"class\",\"submit\"],[9],[0,\"\\n        \"],[7,\"ion-icon\"],[11,\"name\",\"save\"],[9],[10],[0,\"\\n      \"],[3,\"action\",[[24,0,[]],\"submit\"]],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[25,[\"saving\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"lds-dual-ring\"],[9],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[25,[\"showSuccess\"]]],null,{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"success-indicator\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"checkmark\"],[9],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"pull-right\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"open\"],[9],[0,\"\\n      \"],[7,\"ion-icon\"],[11,\"name\",\"create\"],[9],[10],[0,\"\\n    \"],[3,\"action\",[[24,0,[]],\"openForm\"]],[10],[0,\"\\n  \"],[10],[0,\"\\n\\n\"]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}]],\"hasEval\":false}",
     "meta": {
       "moduleName": "lift-tracker-531/templates/components/workout-logger.hbs"
     }
@@ -2075,7 +2082,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+301a3076"});
+            require("lift-tracker-531/app")["default"].create({"name":"lift-tracker-531","version":"0.0.0+0fe93d91"});
           }
         
 //# sourceMappingURL=lift-tracker-531.map
